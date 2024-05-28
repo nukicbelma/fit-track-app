@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FitTrackApp.WebAPI.Entities
+namespace FitTrackApp.WebAPI.Database
 {
     public partial class Activity
     {

@@ -1,6 +1,6 @@
 ﻿namespace FitTrackApp.WebAPI.DTOs
 {
-    public class UserRoleDTO
+    public class GoalInsertDTO
     {
     }
 }

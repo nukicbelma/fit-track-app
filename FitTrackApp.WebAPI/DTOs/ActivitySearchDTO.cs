@@ -1,6 +1,6 @@
 ﻿namespace FitTrackApp.WebAPI.DTOs
 {
-    public class RoleDTO
+    public class ActivitySearchDTO
     {
     }
 }

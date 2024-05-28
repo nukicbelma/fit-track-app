@@ -1,5 +1,7 @@
-﻿using FitTrackApp.WebAPI.Entities;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace FitTrackApp.WebAPI.Database
 {
@@ -16,6 +18,7 @@ namespace FitTrackApp.WebAPI.Database
 
         public virtual DbSet<Activity> Activities { get; set; } = null!;
         public virtual DbSet<ActivityType> ActivityTypes { get; set; } = null!;
+        public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -52,6 +55,13 @@ namespace FitTrackApp.WebAPI.Database
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.ToTable("Role");
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.Property(e => e.BirthDate).HasColumnType("date");
@@ -71,6 +81,11 @@ namespace FitTrackApp.WebAPI.Database
                 entity.Property(e => e.Phone).HasMaxLength(20);
 
                 entity.Property(e => e.Username).HasMaxLength(50);
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.RoleId)
+                    .HasConstraintName("FK_Users_Role");
             });
 
             OnModelCreatingPartial(modelBuilder);

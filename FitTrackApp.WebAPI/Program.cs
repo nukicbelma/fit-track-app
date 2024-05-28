@@ -1,11 +1,9 @@
 using FitTrackApp.WebAPI.Database;
-using FitTrackApp.WebAPI.DTOs;
 using FitTrackApp.WebAPI.Interfaces;
 using FitTrackApp.WebAPI.Security;
 using FitTrackApp.WebAPI.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,10 +40,12 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<FitTrackContext>(
   options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
-builder.Services.AddScoped<IBaseService<ActivityTypeDTO, object>, BaseService<ActivityTypeDTO, object, FitTrackApp.WebAPI.Entities.ActivityType>>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IActivityTypeService, ActivityTypeService>();
+
 //builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddScoped<IActivityService, ActivityService>();
-//builder.Services.AddScoped<IActivityTypeService, ActivityTypeService>();
+
 
 var app = builder.Build();
 

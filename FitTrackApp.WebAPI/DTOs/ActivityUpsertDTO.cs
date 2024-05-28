@@ -1,7 +1,6 @@
 ﻿namespace FitTrackApp.WebAPI.DTOs
 {
-    public class ActivityDTO
+    public class ActivityUpsertDTO
     {
-
     }
 }

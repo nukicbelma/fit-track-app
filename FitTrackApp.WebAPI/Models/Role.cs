@@ -1,6 +1,6 @@
-﻿namespace FitTrackApp.WebAPI.DTOs
+﻿namespace FitTrackApp.WebAPI.Models
 {
-    public class ActivityTypeDTO
+    public class Role
     {
         public int Id { get; set; }
         public string Name { get; set; }
