@@ -13,5 +13,8 @@ namespace FitTrackApp.WebAPI.Database
         public int? ActivityTypeId { get; set; }
 
         public virtual ActivityType? ActivityType { get; set; }
+        public int? UserId { get; set; }
+
+        public virtual User? User { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace FitTrackApp.WebAPI.Services
             _context = context;
             _mapper = mapper;
         }
-        public List<Models.Role> Get()
+        public List<Models.Role> GetAll()
         {
             var query = _context.Roles.AsQueryable();
             var list = query.ToList();

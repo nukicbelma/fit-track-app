@@ -5,7 +5,7 @@ namespace FitTrackApp.WebAPI.Interfaces
 {
     public interface IUserService
     {
-        List<User> Get();
+        List<User> GetAll(UserSearchDTO request);
         User GetById(int id);
         User Insert(UserUpsertDTO request);
         User Update(int id, UserUpsertDTO request);

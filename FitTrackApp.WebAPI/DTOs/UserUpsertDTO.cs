@@ -8,8 +8,8 @@
         public DateTime BirthDate { get; set; }
         public string? Phone { get; set; }
         public string Email { get; set; } = null!;
-        public string PasswordHash { get; set; } = null!;
-        public string PasswordSalt { get; set; } = null!;
+        public string Password { get; set; }
+        public string PasswordConfirm { get; set; }
         public string? Image { get; set; }
         public string? Info { get; set; }
         public double? Height { get; set; }

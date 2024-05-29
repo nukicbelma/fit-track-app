@@ -7,18 +7,21 @@ namespace FitTrackApp.WebAPI.Mappers
     {
         public FitTrackAppProfile()
         {
-            //CreateMap<Database.ActivityType, Models.ActivityType>().ReverseMap();
-
-
             CreateMap<Database.Activity, Models.Activity>().ReverseMap();
+            CreateMap<ActivityUpsertDTO, Database.Activity>();
+            CreateMap<ActivitySearchDTO, Database.Activity>();
 
+
+            CreateMap<Database.Role, Models.Role>().ReverseMap();
+            CreateMap<RoleUpsertDTO, Database.Role>();
+
+            CreateMap<Database.ActivityType, Models.ActivityType>().ReverseMap();
+            CreateMap<ActivityTypeUpsertDTO, Database.ActivityType>();
 
             CreateMap<Database.User, Models.User>().ReverseMap();
             CreateMap<UserUpsertDTO, Database.User>();
-            CreateMap<Database.Role, Models.Role>().ReverseMap();
-            CreateMap<RoleUpsertDTO, Database.Role>();
-            CreateMap<Database.ActivityType, Models.ActivityType>().ReverseMap();
-            CreateMap<ActivityTypeUpsertDTO, Database.ActivityType>();
+            CreateMap<UserLoginDTO, Database.User>();
+            CreateMap<UserSearchDTO, Database.User>();
         }
     }
 }

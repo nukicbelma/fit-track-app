@@ -54,22 +54,19 @@ namespace FitTrackApp.WebAPI.Security
 
             var claims = new List<Claim>();
 
-            /*if (user != null)
+            if (user != null)
             {
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Username));
                 claims.Add(new Claim(ClaimTypes.Name, user.FirstName));
-
-                foreach (var role in user.UserRoles)
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
-                }
+                claims.Add(new Claim(ClaimTypes.Role, user.Role.Name));
+                
             }
             else
             {
-                claims.Add(new Claim(ClaimTypes.NameIdentifier, client.UserName));
-                claims.Add(new Claim(ClaimTypes.Name, client.FirstName));
-                claims.Add(new Claim(ClaimTypes.Role, "Customer"));
-            }*/
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Username));
+                claims.Add(new Claim(ClaimTypes.Name, user.FirstName));
+                claims.Add(new Claim(ClaimTypes.Role, "Client"));
+            }
 
             var identity = new ClaimsIdentity(claims, Scheme.Name);
             var principal = new ClaimsPrincipal(identity);

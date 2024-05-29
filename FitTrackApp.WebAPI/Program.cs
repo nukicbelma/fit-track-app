@@ -35,16 +35,15 @@ builder.Services.AddSwaggerGen(c =>
 
 
 
-/*builder.Services.AddAuthentication("BasicAuthentication")
-           .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);*/
+builder.Services.AddAuthentication("BasicAuthentication")
+           .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 builder.Services.AddDbContext<FitTrackContext>(
   options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IActivityTypeService, ActivityTypeService>();
-
-//builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddScoped<IActivityService, ActivityService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
 
 
 var app = builder.Build();

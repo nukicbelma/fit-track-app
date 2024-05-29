@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FitTrackApp.WebAPI.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
+    //[Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
@@ -15,9 +18,9 @@ namespace FitTrackApp.WebAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<User>> Get()
+        public ActionResult<List<User>> Get([FromQuery]UserSearchDTO request)
         {
-            return _service.Get();
+            return _service.GetAll(request);
         }
 
         [HttpGet("{id}")]
