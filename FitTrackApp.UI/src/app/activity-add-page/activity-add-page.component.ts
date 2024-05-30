@@ -32,11 +32,33 @@ export class ActivityAddPageComponent {
     });
   }
 
-  addActivity(): void {
+  /*addActivity(): void {
     // Implement the method to add a new activity
     console.log('New activity added:', this.newActivity);
+    
     // Navigate back to the activity table page after adding the activity
     this.router.navigate(['/activities']);
+  }*/
+
+  addActivity(form: any) {
+    const newActivity: Activity = {
+      name: form.value.name,
+      description: form.value.description,
+      activityType: form.activityType.value,
+      startDate: form.startDate.value,
+      duration: form.duration.value,
+      user: ''
+    };
+
+    this.activityService.addActivity(newActivity).subscribe(
+      response => {
+        console.log('Activity added successfully', response);
+        this.router.navigate(['/activities']);
+      },
+      error => {
+        console.error('Error adding activity', error);
+      }
+    );
   }
 
   cancel(): void {

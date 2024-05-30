@@ -9,8 +9,8 @@ import { ActivityType } from '../../models/activityType';
   providedIn: 'root'
 })
 export class ActivityService {
-  private apiUrl = 'https://localhost:5001/Activity'; 
-  private activityTypesUrl = 'https://localhost:5001/ActivityType';
+  private activityUrl = 'https://localhost:5001/Activity'; 
+  private activityTypeUrl = 'https://localhost:5001/ActivityType';
 
   constructor(private http: HttpClient) { }
 
@@ -26,12 +26,18 @@ export class ActivityService {
       params = params.set('startDate', startDate);
     }
 
-    return this.http.get<Activity[]>(this.apiUrl, { params });
+    return this.http.get<Activity[]>(this.activityUrl, { params });
   }
 
   getActivityTypes(): Observable<string[]> {
-    return this.http.get<ActivityType[]>(this.activityTypesUrl).pipe(
+    return this.http.get<ActivityType[]>(this.activityTypeUrl).pipe(
       map((activityTypes: any[]) => activityTypes.map(activityType => activityType.name))
     );
+  }
+
+  addActivity(activity: Activity): Observable<Activity> {
+    console.log("fffffffffff")
+    console.log(activity.activityType);
+    return this.http.post<Activity>(`${this.activityUrl}/`, activity);
   }
 }

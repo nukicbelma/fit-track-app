@@ -1,0 +1,23 @@
+.home-container {
+    text-align: center;
+    padding: 2em;
+  }
+  
+  h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+    color: #333;
+  }
+  
+  p {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 2em;
+  }
+  
+  .home-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  

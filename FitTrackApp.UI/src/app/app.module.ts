@@ -9,12 +9,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { ActivityAddPageComponent } from './activity-add-page/activity-add-page.component';
 import { ActivityService } from './services/activity/activity.service';
 import { provideRouter } from '@angular/router';
+import { NavigationHeaderComponent } from './navigation-header/navigation-header.component';
+import { AboutPageComponent } from './about-page/about-page.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ActivityTablePageComponent,
-    ActivityAddPageComponent
+    ActivityAddPageComponent,
+    NavigationHeaderComponent,
+    AboutPageComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,

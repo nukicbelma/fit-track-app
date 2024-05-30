@@ -1,12 +1,12 @@
 <div class="activity-container">
-    <h2>Add New Activity</h2>
-    <form (ngSubmit)="addActivity()">
+    <h2>Add new activity</h2>
+    <form (ngSubmit)="addActivity(activityForm)" #activityForm="ngForm">
       <div>
         <label for="name">Name:</label>
         <input type="text" id="name" [(ngModel)]="newActivity.name" name="name" required>
       </div>
       <div>
-        <label for="activityType">Activity Type:</label>
+        <label for="activityType">Activity type:</label>
         <select id="activityType" [(ngModel)]="newActivity.activityType" name="activityType" required>
           <option *ngFor="let type of activityTypes" [value]="type">{{ type }}</option>
         </select>
@@ -16,18 +16,18 @@
         <input type="text" id="description" [(ngModel)]="newActivity.description" name="description" required>
       </div>
       <div>
-        <label for="startDate">Start Date:</label>
+        <label for="startDate">Start date:</label>
         <input type="date" id="startDate" [(ngModel)]="newActivity.startDate" name="startDate" required>
       </div>
       <div>
-        <label for="duration">Duration:</label>
+        <label for="duration">Duration (min):</label>
         <input type="text" id="duration" [(ngModel)]="newActivity.duration" name="duration" required>
       </div>
       <div>
         <label for="user">User:</label>
         <input type="text" id="user" [(ngModel)]="newActivity.user" name="user" required>
       </div>
-      <button type="submit">Add Activity</button>
+      <button type="submit">Add activity</button>
     </form>
     <button (click)="cancel()">Cancel</button>
 </div>

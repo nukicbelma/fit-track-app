@@ -1,0 +1,55 @@
+<!-- about-page.component.html -->
+<div class="about-container">
+    <h1>About Us</h1>
+    
+    <p>
+      FitTrack is an app designed to help users track their fitness journeys, activities, and goals. The application supports two types of users: Employees/Admins and Customers, each with specific roles that determine their permissions and access throughout the app. These roles define the user's authority over various CRUD (Create, Read, Update, Delete) operations.
+    </p>
+  
+    <p>The backend of FitTrack is implemented as a RESTful API using C# and ASP.NET.</p>
+  
+    <h3>Basic Core Functionalities</h3>
+    <p>Here are the main features of FitTrack:</p>
+    <ul>
+      <li>
+        Users can enter (add) a finished fitness activity. Activities can be edited and deleted. Activity details include:
+        <ul>
+          <li>Name</li>
+          <li>Details</li>
+          <li>Start date</li>
+          <li>Activity type</li>
+          <li>Duration time</li>
+        </ul>
+      </li>
+      <li>Activity types are predefined values (from a dropdown list): run, walk, hike, swim, etc.</li>
+      <li>Users can filter activities by start date and activity type.</li>
+      <li>Users can search activities by name and details.</li>
+      <li>
+        Users can set a personal goal. For example, a goal can be the total sum of all activities during the day or the total duration of activities during the day. Examples of goals:
+        <ul>
+          <li>Activity 1x per day</li>
+          <li>30 mins per day</li>
+        </ul>
+      </li>
+      <li>Basic UI/UX, AJAX techniques, REST API</li>
+    </ul>
+  
+    <h3>Repository Pattern</h3>
+    <p>
+      The Repository Pattern abstracts the data layer and provides a consistent API for data access. It also centralizes data access in repository and service classes, ensuring that CRUD operations are performed in a uniform manner for every entity from the database.
+    </p>
+  
+    <h3>Code Organization</h3>
+    <p>
+      MVC (Model-View-Controller) is a software architectural pattern used for organizing code in web applications. It separates the application into three interconnected components:
+    </p>
+    <ul>
+      <li><strong>Model:</strong> Handles data and business logic</li>
+      <li><strong>View:</strong> Renders the user interface</li>
+      <li><strong>Controller:</strong> Processes user input and updates the Model and View</li>
+    </ul>
+    <p>
+      This separation facilitates modular development, easier maintenance, and a clear structure for managing complex applications.
+    </p>
+  </div>
+  

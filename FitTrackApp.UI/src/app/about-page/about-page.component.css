@@ -1,0 +1,40 @@
+/* about-page.component.css */
+.about-container {
+    padding: 2em;
+    max-width: 800px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  h1, h3, h4 {
+    color: #333;
+    margin-bottom: 0.5em;
+  }
+  
+  p {
+    color: #555;
+    margin-bottom: 1em;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  ul li {
+    background: #f9f9f9;
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    border-radius: 5px;
+  }
+  
+  ul li ul {
+    list-style-type: disc;
+    padding-left: 1.5em;
+  }
+  
+  strong {
+    color: #000;
+  }
+  

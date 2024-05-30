@@ -1,0 +1,29 @@
+<header>
+    <div class="container">
+        <div class="main-menu">
+            <a href="#" routerLink="/" class="logo">FitTrack</a>
+        </div>
+        <nav>
+            <ul>
+                <span class="left-align">
+                    <!--<span *ngIf="!authService.isLoggedIn || authService.isCustomer"> -->
+                        <li><a href="#" routerLink="/" class="menu-item">Home</a></li>
+                        <li><a href="#" routerLink="/about" class="menu-item">About</a></li>
+                    <!--</span>-->
+                    <!--<span *ngIf="authService.isEmployee">-->
+                        <li><a routerLink="/activities" routerLinkActive="active">Activities</a></li>
+                        <li><a routerLink="/goals" routerLinkActive="active">Goals</a></li>                    
+                    </span>
+                <!--</span>-->
+               <!--<span class="right-align">
+                    <li *ngIf="!authService.isLoggedIn || authService.isCustomer">
+                        <a routerLink="/cart-page" class="menu-item ">Korpa</a>
+                    </li>
+                    <li *ngIf="!authService.isLoggedIn"><a href="#" routerLink="/login-page"
+                            class="menu-item">Prijava</a></li>
+                    <li *ngIf="authService.isLoggedIn"><a href="#" (click)="logout()" class="menu-item">Odjava</a></li>
+                </span>-->
+            </ul>
+        </nav>
+    </div>
+</header>
