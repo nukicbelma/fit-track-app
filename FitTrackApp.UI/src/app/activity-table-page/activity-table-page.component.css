@@ -1,0 +1,42 @@
+/* activity-table-page.component.css */
+
+.activity-container {
+    margin: 20px;
+  }
+  
+  .search-bar {
+    margin-bottom: 10px;
+  }
+  
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    
+  }
+  .wrapper input,
+  .wrapper select {
+    margin-right: 10px; 
+    margin-bottom: 10px; 
+  }
+  
+  .activity-table {
+    width: 100%;
+  }
+  
+  .activity-table th,
+  .activity-table td {
+    padding: 0.75rem;
+  }
+  
+  .activity-table th {
+    background-color: #f8f9fa; 
+    font-weight: 500; 
+  }
+  
+  .activity-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa; 
+  }
+  .activity-table tbody tr:hover {
+    background-color: #e9ecef; 
+  }

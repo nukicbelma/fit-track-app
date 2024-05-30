@@ -1,0 +1,34 @@
+<div class="wrapper">
+    <input type="text" placeholder="Search by name or description" [(ngModel)]="searchQuery" (input)="onSearchChange()" />
+    <select [(ngModel)]="filterType" (change)="onFilterTypeChange()">
+      <option value="">All Types</option>
+      <option *ngFor="let type of activityTypes" [value]="type">{{ type }}</option>
+    </select>
+    <input type="date" [(ngModel)]="filterDate" (change)="onFilterDateChange()" />
+  
+    <table class="activity-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Activity type</th>
+          <th>Description</th>
+          <th>Start date</th>
+          <th>Duration</th>
+          <th>User</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let activity of activities">
+          <td>{{ activity.name }}</td>
+          <td>{{ activity.activityType }}</td>
+          <td>{{ activity.description }}</td>
+          <td>{{ activity.startDate | date }}</td>
+          <td>{{ activity.duration }}</td>
+          <td>{{ activity.user }}</td>
+          <td><button>Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
