@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Activity } from '../models/activity';
 import { ActivityService } from '../services/activity/activity.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity-table-page',
@@ -14,7 +15,7 @@ export class ActivityTablePageComponent implements OnInit {
   filterType: string = '';
   filterDate: string = '';
 
-  constructor(private activityService: ActivityService) { }
+  constructor(private activityService: ActivityService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadActivities();
@@ -43,5 +44,9 @@ export class ActivityTablePageComponent implements OnInit {
 
   onFilterDateChange(): void {
     this.loadActivities();
+  }
+
+  addNewActivity() : void {
+    this.router.navigate(['/activity-add']);
   }
 }

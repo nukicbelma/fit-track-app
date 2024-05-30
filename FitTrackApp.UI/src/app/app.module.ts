@@ -6,21 +6,23 @@ import { AppComponent } from './app.component';
 import { ActivityTablePageComponent } from './activity-table-page/activity-table-page.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ActivityAddPageComponent } from './activity-add-page/activity-add-page.component';
+import { ActivityService } from './services/activity/activity.service';
+import { provideRouter } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ActivityTablePageComponent
+    ActivityTablePageComponent,
+    ActivityAddPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
-    HttpClientModule,
-    FormsModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [
-    provideClientHydration()
-  ],
+  providers: [ActivityService, provideClientHydration()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
