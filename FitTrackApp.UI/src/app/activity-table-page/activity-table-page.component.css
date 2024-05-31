@@ -1,42 +1,74 @@
 /* activity-table-page.component.css */
+.wrapper {
+  padding: 2em;
+  background-color: #f0f7f2; /* Light mint-gray background */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 10px;
+}
 
-.activity-container {
-    margin: 20px;
-  }
-  
-  .search-bar {
-    margin-bottom: 10px;
-  }
-  
-  .wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    
-  }
-  .wrapper input,
-  .wrapper select {
-    margin-right: 10px; 
-    margin-bottom: 10px; 
-  }
-  
-  .activity-table {
-    width: 100%;
-  }
-  
-  .activity-table th,
-  .activity-table td {
-    padding: 0.75rem;
-  }
-  
-  .activity-table th {
-    background-color: #f8f9fa; 
-    font-weight: 500; 
-  }
-  
-  .activity-table tbody tr:nth-child(even) {
-    background-color: #f8f9fa; 
-  }
-  .activity-table tbody tr:hover {
-    background-color: #e9ecef; 
-  }
+input[type="text"],
+select,
+input[type="date"] {
+  margin: 0.5em;
+  padding: 0.5em;
+  border: 1px solid #4CAF50; /* Mint green border */
+  border-radius: 5px;
+  width: calc(100% / 3 - 1em);
+  box-sizing: border-box;
+}
+
+.add-button {
+  color: white; /* Light mint */
+  background-color: #333333; /* Dark gray text */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin: 1em auto; /* Add auto margin to horizontally center */
+  display: block; /* Ensure the button takes up full width */
+  max-width: 400px; /* Optionally limit the button's width */
+}
+
+.add-button:hover {
+  background-color: rgb(82, 112, 98); /* Light mint */
+}
+
+.activity-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+}
+
+.activity-table th,
+.activity-table td {
+  border: 1px solid #4CAF50; /* Mint green border */
+  padding: 0.75em;
+  text-align: left;
+}
+
+.activity-table th {
+  background-color: rgb(159, 196, 179); /* Light mint */
+  color: #333333; /* Dark gray text */
+}
+
+.activity-table td {
+  background-color:white; /* Light mint background */
+}
+
+
+.edit-button {
+  color:white; /* Light mint */
+  background-color: #333333; /* Dark gray text */
+  border: none;
+  padding: 0.25em 0.5em;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  display: block;
+}
+
+.edit-button:hover {
+  background-color: rgb(82, 112, 98); /* Light mint */
+}

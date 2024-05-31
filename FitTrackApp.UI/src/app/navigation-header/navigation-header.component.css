@@ -1,16 +1,16 @@
 header {
-    background: #fff;
-    padding: 0;
-    border-bottom: 1px solid #29abe7;
+    background: #f0f7f2; /* Light mint-gray */
+    padding: 1em 0;
+    border-bottom: 1px solid #b1bfcb; /* Mint-gray border */
   }
   
   a {
-    color: #131daf;
+    color: #333333; /* Dark gray */
   }
   
   a:hover {
-    background-color: #29abe7;
-    color: #fff;
+    background-color: #709f8f; /* Light mint */
+    color: #FFFFFF; /* White */
   }
   
   .container {
@@ -55,3 +55,4 @@ header {
     padding: 1em;
     display: inline-block;
   }
+  
