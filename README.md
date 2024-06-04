@@ -13,6 +13,8 @@ The backend of FitTrack is implemented as a RESTful API using C# and ASP.NET
 	Password: admin
 
 ### Database diagram
+![Uploading Database_diagram.png…]()
+
 ### Basic core functionalities (with pictures)
  * User can enter (add) a finished fitness activity. Activities can be edited and deleted. Activity details: name, details, start date, activity type, duration time.
  * Activity types are predefined values (from a dropdown list): run, walk, hike, swim etc.)
