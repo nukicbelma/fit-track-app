@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Activity } from '../models/activity';
 import { ActivityService } from '../services/activity/activity.service';
 import { Router } from '@angular/router';
+import { ActivityType } from '../models/activityType';
 
 @Component({
   selector: 'app-activity-add-page',
@@ -10,15 +11,16 @@ import { Router } from '@angular/router';
 })
 export class ActivityAddPageComponent {
   newActivity: Activity = {
+    id:0,
     name: '',
-    activityType: '',
+    activityTypeId: '',
     description: '',
     startDate: new Date(),
     duration: 0,
     user: ''
   };
 
-  activityTypes: string[] = [];
+  activityTypes: ActivityType[] = [];
 
   constructor(private activityService: ActivityService, private router: Router) { }
 
@@ -34,7 +36,6 @@ export class ActivityAddPageComponent {
 
   /*addActivity(): void {
     // Implement the method to add a new activity
-    console.log('New activity added:', this.newActivity);
     
     // Navigate back to the activity table page after adding the activity
     this.router.navigate(['/activities']);
@@ -42,11 +43,12 @@ export class ActivityAddPageComponent {
 
   addActivity(form: any) {
     const newActivity: Activity = {
+      id: form.value.id,
       name: form.value.name,
       description: form.value.description,
-      activityType: form.activityType.value,
-      startDate: form.startDate.value,
-      duration: form.duration.value,
+      activityTypeId: form.value.activityTypeId,
+      startDate: form.value.startDate,
+      duration: form.value.duration, 
       user: ''
     };
 

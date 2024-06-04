@@ -1,0 +1,29 @@
+<div class="activity-container">
+    <h2>Edit activity</h2>
+    <form (ngSubmit)="updateActivity(activityForm)" #activityForm="ngForm">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" [(ngModel)]="activity.name" name="name" required>
+      </div>
+      <div>
+        <label for="activityTypeId">Activity type:</label>
+        <select id="activityTypeId" [(ngModel)]="activity.activityTypeId" name="activityTypeId" required>
+          <option *ngFor="let type of activityTypes" [value]="type.id">{{ type.name }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="description">Description:</label>
+        <input type="text" id="description" [(ngModel)]="activity.description" name="description" required>
+      </div>
+      <div>
+        <label for="startDate">Start date:</label>
+        <input type="date" id="startDate" [ngModel]="activity.startDate | date:'yyyy-MM-dd'" name="startDate" required>
+      </div>
+      <div>
+        <label for="duration">Duration (min):</label>
+        <input type="text" id="duration" [(ngModel)]="activity.duration" name="duration" required>
+      </div>
+      <button type="submit">Update activity</button>
+      <button class="btn btn-secondary btn-block" (click)="cancel()">Cancel</button>
+    </form>
+</div>

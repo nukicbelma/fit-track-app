@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Activity } from '../models/activity';
 import { ActivityService } from '../services/activity/activity.service';
 import { Router } from '@angular/router';
+import { ActivityType } from '../models/activityType';
 
 @Component({
   selector: 'app-activity-table-page',
@@ -10,10 +11,9 @@ import { Router } from '@angular/router';
 })
 export class ActivityTablePageComponent implements OnInit {
   activities: Activity[] = [];
-  activityTypes: string[] = [];
-  searchQuery: string = '';
-  filterType: string = '';
-  filterDate: string = '';
+  activityTypes: ActivityType[] = [];
+  activitySearchRequest = { name: '', description: '' , activityTypeId: '', startDate: ''};
+  activityTypeMap: Map<string, string> = new Map();
 
   constructor(private activityService: ActivityService, private router: Router) { }
 
@@ -23,7 +23,7 @@ export class ActivityTablePageComponent implements OnInit {
   }
 
   loadActivities(): void {
-    this.activityService.getActivities(this.searchQuery, this.filterType, this.filterDate).subscribe(data => {
+    this.activityService.getActivities(this.activitySearchRequest).subscribe(data => {
       this.activities = data;
     });
   }
@@ -31,10 +31,15 @@ export class ActivityTablePageComponent implements OnInit {
   loadActivityTypes(): void {
     this.activityService.getActivityTypes().subscribe(data => {
       this.activityTypes = data;
+      this.activityTypeMap = new Map(data.map(type => [type.id, type.name]));
     });
   }
 
-  onSearchChange(): void {
+  onSearchNameChange(): void {
+    this.loadActivities();
+  }
+
+  onSearchDescriptionChange(): void {
     this.loadActivities();
   }
 
@@ -48,5 +53,13 @@ export class ActivityTablePageComponent implements OnInit {
 
   addNewActivity() : void {
     this.router.navigate(['/activity-add']);
+  }
+
+  editActivity(id: number): void {
+    this.router.navigate(['/activity-edit', id]);
+  }
+
+  getActivityTypeName(typeId: string): string {
+    return this.activityTypeMap.get(typeId) || 'Unknown';
   }
 }

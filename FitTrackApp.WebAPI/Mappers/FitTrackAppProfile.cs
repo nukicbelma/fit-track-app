@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FitTrackApp.WebAPI.DTOs;
+using Microsoft.AspNetCore.Identity;
 
 namespace FitTrackApp.WebAPI.Mappers
 {
@@ -22,6 +23,11 @@ namespace FitTrackApp.WebAPI.Mappers
             CreateMap<UserUpsertDTO, Database.User>();
             CreateMap<UserLoginDTO, Database.User>();
             CreateMap<UserSearchDTO, Database.User>();
+
+
+            CreateMap<Database.Goal, Models.Goal>().ReverseMap();
+            CreateMap<GoalUpsertDTO, Database.Goal>();
+            
         }
     }
 }

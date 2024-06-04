@@ -1,0 +1,62 @@
+.activity-container {
+    padding: 20px;
+    background-color: #f0f7f2; /* Light mint-gray background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: auto;
+    margin-top: 50px;
+    font-family: Arial, sans-serif; /* Ensure a consistent font family */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px; /* Adjust the font size of the header */
+}
+
+form div {
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px; /* Set a consistent font size for labels */
+}
+
+form input[type="text"],
+form input[type="date"],
+form select {
+    padding: 10px;
+    border: 1px solid #4CAF50; /* Mint green border */
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px; /* Set a consistent font size for inputs and selects */
+}
+
+button[type="submit"],
+.btn-secondary {
+    background-color: #333333; /* Dark gray */
+    border-color: #333333; /* Dark gray */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 14px; /* Set a consistent font size for buttons */
+    margin-bottom: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: rgb(82, 112, 98); /* Light mint */
+    border-color: rgb(82, 112, 98); /* Light mint */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Darker shade for hover */
+    border-color: #5a6268;
+}

@@ -12,16 +12,19 @@ namespace FitTrackApp.WebAPI.Security
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         private readonly IUserService _userService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public BasicAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
+            IHttpContextAccessor httpContextAccessor,
             IUserService userService)
             : base(options, logger, encoder, clock)
         {
             _userService = userService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -29,7 +32,7 @@ namespace FitTrackApp.WebAPI.Security
             if (!Request.Headers.ContainsKey("Authorization"))
                 return AuthenticateResult.Fail("Missing Authorization Header");
 
-            Models.User user = null;
+            Models.User user;
             try
             {
                 var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
@@ -42,7 +45,7 @@ namespace FitTrackApp.WebAPI.Security
                     Username=username, 
                     Password=password
                 };
-                user = _userService.Authenticate(UserLogin);
+                user = _userService.Login(UserLogin, _httpContextAccessor.HttpContext);
             }
             catch
             {

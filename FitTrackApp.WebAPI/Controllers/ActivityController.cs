@@ -22,6 +22,12 @@ namespace FitTrackApp.WebAPI.Controllers
             return _service.GetAll(search);
         }
 
+        [HttpGet("{id}")]
+        public Models.Activity GetById(int id)
+        {
+            return _service.GetById(id);
+        }
+
         [HttpPost]
         public void Insert(ActivityUpsertDTO request)
         {

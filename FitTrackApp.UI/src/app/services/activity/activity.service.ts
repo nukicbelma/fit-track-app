@@ -4,6 +4,12 @@ import { Observable, map } from 'rxjs';
 import { Activity } from '../../models/activity';
 import { ActivityType } from '../../models/activityType';
 
+interface ActivitySearchRequest {
+  name: string;
+  description: string;
+  activityTypeId: string;
+  startDate: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -14,30 +20,39 @@ export class ActivityService {
 
   constructor(private http: HttpClient) { }
 
-  getActivities(searchQuery: string = '', activityType: string = '', startDate: string = ''): Observable<Activity[]> {
+  getActivities(activitySearchRequest: ActivitySearchRequest): Observable<Activity[]> {
     let params = new HttpParams();
-    if (searchQuery) {
-      params = params.set('searchQuery', searchQuery);
+    if (activitySearchRequest.name) {
+      params = params.set('name', activitySearchRequest.name);
     }
-    if (activityType) {
-      params = params.set('activityType', activityType);
+    if (activitySearchRequest.description) {
+      params = params.set('description', activitySearchRequest.description);
     }
-    if (startDate) {
-      params = params.set('startDate', startDate);
+    if (activitySearchRequest.activityTypeId) {
+      params = params.set('activityTypeId', activitySearchRequest.activityTypeId);
+    }
+    if (activitySearchRequest.startDate) {
+      params = params.set('startDate', activitySearchRequest.startDate);
     }
 
     return this.http.get<Activity[]>(this.activityUrl, { params });
   }
 
-  getActivityTypes(): Observable<string[]> {
-    return this.http.get<ActivityType[]>(this.activityTypeUrl).pipe(
-      map((activityTypes: any[]) => activityTypes.map(activityType => activityType.name))
-    );
+  getActivityTypes(): Observable<ActivityType[]> {
+    return this.http.get<ActivityType[]>(this.activityTypeUrl);
   }
+  
 
   addActivity(activity: Activity): Observable<Activity> {
-    console.log("fffffffffff")
-    console.log(activity.activityType);
     return this.http.post<Activity>(`${this.activityUrl}/`, activity);
   }
+
+  updateActivity(id: number, activity: Activity): Observable<Activity> {
+    return this.http.put<Activity>(`${this.activityUrl}/${id}`, activity);
+  }
+
+  getActivityById(id: number): Observable<Activity> {
+    return this.http.get<Activity>(`${this.activityUrl}/${id}`);
+  }
+
 }

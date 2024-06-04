@@ -9,6 +9,6 @@ namespace FitTrackApp.WebAPI.Interfaces
         User GetById(int id);
         User Insert(UserUpsertDTO request);
         User Update(int id, UserUpsertDTO request);
-        User Authenticate(UserLoginDTO request);
+        User Login(UserLoginDTO request, HttpContext httpContext);
     }
 }

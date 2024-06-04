@@ -3,8 +3,12 @@ using FitTrackApp.WebAPI.Interfaces;
 using FitTrackApp.WebAPI.Security;
 using FitTrackApp.WebAPI.Services;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddControllers();
+builder.Services.AddSession();
 
 builder.Services.AddCors(options =>
 {
@@ -42,17 +47,21 @@ builder.Services.AddSwaggerGen(c =>
      });
 });
 
-
-
 builder.Services.AddAuthentication("BasicAuthentication")
            .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 builder.Services.AddDbContext<FitTrackContext>(
   options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
+
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IActivityTypeService, ActivityTypeService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IActivityService, ActivityService>();
+builder.Services.AddScoped<IGoalService, GoalService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
 
 
 var app = builder.Build();
@@ -65,6 +74,7 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseRouting();
 
@@ -76,3 +86,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

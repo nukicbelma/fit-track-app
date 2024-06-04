@@ -1,21 +1,22 @@
 ﻿using AutoMapper;
 using FitTrackApp.WebAPI.Database;
 using FitTrackApp.WebAPI.DTOs;
-using FitTrackApp.WebAPI.Helpers;
 using FitTrackApp.WebAPI.Interfaces;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 
 namespace FitTrackApp.WebAPI.Services
 {
     public class ActivityService : IActivityService
     {
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _contextAccessor;
         private readonly FitTrackContext _context;
 
-        public ActivityService(FitTrackContext context, IMapper mapper)
+        public ActivityService(FitTrackContext context, IMapper mapper, IHttpContextAccessor contextAccessor)
         {
             _context = context;
             _mapper = mapper;
+            _contextAccessor = contextAccessor;
         }
         public List<Models.Activity> GetAll(ActivitySearchDTO search)
         {
@@ -56,11 +57,18 @@ namespace FitTrackApp.WebAPI.Services
             return _mapper.Map<List<Models.Activity>>(list);
         }
 
-        public async Task<Models.Activity> Insert(ActivityUpsertDTO request)
+        public Models.Activity GetById(int id)
+        {
+            var entity = _context.Activities.Find(id);
+            return _mapper.Map<Models.Activity>(entity);
+        }
+
+        public Models.Activity Insert(ActivityUpsertDTO request)
         {
             Activity entity = _mapper.Map<Activity>(request);
-
-            //dodaj entity.userId = loggedUser.Id
+            
+            //entity.UserId = Int32.Parse(_contextAccessor.HttpContext.Session.GetString("UserId"));
+            entity.Id = request.Id;
             _context.Activities.Add(entity);
             _context.SaveChanges();
 
@@ -70,6 +78,8 @@ namespace FitTrackApp.WebAPI.Services
         public Models.Activity Update(int id, ActivityUpsertDTO request)
         {
             var entity = _context.Activities.Where(x => x.Id == id).FirstOrDefault();
+            entity.UserId = 4;
+            //entity.UserId=Int32.Parse( _contextAccessor.HttpContext.Session.GetString("UserId"));
 
             //dodaj entity.userId = loggedUser.Id
             _context.Activities.Attach(entity);

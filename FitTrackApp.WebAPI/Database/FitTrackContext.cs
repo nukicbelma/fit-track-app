@@ -18,6 +18,7 @@ namespace FitTrackApp.WebAPI.Database
 
         public virtual DbSet<Activity> Activities { get; set; } = null!;
         public virtual DbSet<ActivityType> ActivityTypes { get; set; } = null!;
+        public virtual DbSet<Goal> Goals { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
@@ -44,6 +45,11 @@ namespace FitTrackApp.WebAPI.Database
                     .WithMany(p => p.Activities)
                     .HasForeignKey(d => d.ActivityTypeId)
                     .HasConstraintName("FK__Activity__Activi__3B75D760");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Activities)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Activity_User");
             });
 
             modelBuilder.Entity<ActivityType>(entity =>
@@ -55,6 +61,46 @@ namespace FitTrackApp.WebAPI.Database
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<Goal>(entity =>
+            {
+                entity.ToTable("Goal");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.ActivityId).HasColumnName("activityId");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("createdDate");
+
+                entity.Property(e => e.Duration).HasColumnName("duration");
+
+                entity.Property(e => e.DurationUnit)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("durationUnit");
+
+                entity.Property(e => e.Frequency).HasColumnName("frequency");
+
+                entity.Property(e => e.UpdatedDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("updatedDate");
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.HasOne(d => d.Activity)
+                    .WithMany(p => p.Goals)
+                    .HasForeignKey(d => d.ActivityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("goals_activity");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Goals)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("goals_user");
+            });
+
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.ToTable("Role");
@@ -64,6 +110,8 @@ namespace FitTrackApp.WebAPI.Database
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.ToTable("User");
+
                 entity.Property(e => e.BirthDate).HasColumnType("date");
 
                 entity.Property(e => e.Email).HasMaxLength(50);

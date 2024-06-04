@@ -12,6 +12,12 @@ import { provideRouter } from '@angular/router';
 import { NavigationHeaderComponent } from './navigation-header/navigation-header.component';
 import { AboutPageComponent } from './about-page/about-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { GoalTablePageComponent } from './goal-table-page/goal-table-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { GoalAddPageComponent } from './goal-add-page/goal-add-page.component';
+import { ActivityEditPageComponent } from './activity-edit-page/activity-edit-page.component';
+import { GoalEditPageComponent } from './goal-edit-page/goal-edit-page.component';
+import { PopupMessageComponent } from './popup-message/popup-message.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,13 @@ import { HomePageComponent } from './home-page/home-page.component';
     ActivityAddPageComponent,
     NavigationHeaderComponent,
     AboutPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    GoalTablePageComponent,
+    GoalAddPageComponent,
+    LoginPageComponent,
+    ActivityEditPageComponent,
+    GoalEditPageComponent,
+    PopupMessageComponent    
   ],
   imports: [
     BrowserModule,

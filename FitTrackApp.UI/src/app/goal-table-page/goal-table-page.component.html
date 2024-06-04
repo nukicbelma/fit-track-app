@@ -1,0 +1,29 @@
+<div class="container">
+    <h4>Activity goals overview</h4>
+    <button class="btn btn-primary" (click)="addNewGoal()">Add goal</button>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Duration unit</th>
+          <th>Duration</th>
+          <th>Frequency</th>
+          <th>Created date</th>
+          <th>Updated date</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let goal of goals">
+          <td>{{ getActivityName(goal.activityId) }}</td>
+          <td>{{ goal.durationUnit }}</td>
+          <td>{{ goal.duration }}</td>
+          <td>{{ goal.frequency }}</td>
+          <td>{{ goal.createdDate | date:'short' }}</td>
+          <td>{{ goal.updatedDate | date:'short' }}</td>
+          <td><button class="edit-button"(click)="editGoal(goal.id)">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

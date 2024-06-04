@@ -1,0 +1,27 @@
+<div class="container">
+    <h4>Add new goal</h4>
+    <form>
+      <div class="form-group">
+        <label for="activityId">Activity ID:</label>
+        <input type="number" id="activityId" class="form-control" placeholder="Enter activity ID" [(ngModel)]="newGoal.activityId" name="activityId" required>
+      </div>
+      <div class="form-group">
+        <label for="measureUnit">Measure Unit:</label>
+        <select id="measureUnit" class="form-control" [(ngModel)]="newGoal.measureUnit" name="measureUnit" required>
+          <option value="time">Time</option>
+          <option value="frequency">Frequency</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="duration">Duration:</label>
+        <input type="number" id="duration" class="form-control" placeholder="Enter duration" [(ngModel)]="newGoal.duration" name="duration" *ngIf="newGoal.measureUnit === 'time'" required>
+      </div>
+      <div class="form-group">
+        <label for="frequency">Frequency:</label>
+        <input type="number" id="frequency" class="form-control" placeholder="Enter frequency" [(ngModel)]="newGoal.frequency" name="frequency" *ngIf="newGoal.measureUnit === 'frequency'" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Add goal</button>
+      <button class="btn btn-secondary btn-block" (click)="cancel()">Cancel</button>
+    </form>
+  </div>
+  

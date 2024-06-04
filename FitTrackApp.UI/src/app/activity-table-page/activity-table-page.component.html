@@ -1,12 +1,13 @@
 <div class="wrapper">
-    <input type="text" placeholder="Search by name or description" [(ngModel)]="searchQuery" (input)="onSearchChange()" />
-    <select [(ngModel)]="filterType" (change)="onFilterTypeChange()">
+  <h4>Activity overview</h4>
+    <input type="text" placeholder="Search by name" [(ngModel)]="activitySearchRequest.name" (input)="onSearchNameChange()" />
+    <input type="text" placeholder="Search by description" [(ngModel)]="activitySearchRequest.description" (input)="onSearchDescriptionChange()" />
+    <select [(ngModel)]="activitySearchRequest.activityTypeId" (change)="onFilterTypeChange()">
       <option value="">All Types</option>
-      <option *ngFor="let type of activityTypes" [value]="type">{{ type }}</option>
+      <option *ngFor="let type of activityTypes" [value]="type.id">{{ type.name }}</option>
     </select>
-    <input type="date" [(ngModel)]="filterDate" (change)="onFilterDateChange()" />
-  
-    <button routerLink="/activity-add" class="add-button">Add Activity</button>
+    <input type="date" [(ngModel)]="activitySearchRequest.startDate" (change)="onFilterDateChange()" />
+    <button routerLink="/activity-add" class="add-button">Add activity</button>
     <table class="activity-table">
       <thead>
         <tr>
@@ -14,20 +15,18 @@
           <th>Activity type</th>
           <th>Description</th>
           <th>Start date</th>
-          <th>Duration</th>
-          <th>User</th>
+          <th>Duration (min)</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let activity of activities">
           <td>{{ activity.name }}</td>
-          <td>{{ activity.activityType }}</td>
+          <td>{{ getActivityTypeName(activity.activityTypeId) }}</td>
           <td>{{ activity.description }}</td>
-          <td>{{ activity.startDate | date }}</td>
+          <td>{{ activity.startDate | date: 'dd/MM/yyyy' }}</td>
           <td>{{ activity.duration }}</td>
-          <td>{{ activity.user }}</td>
-          <td><button class="edit-button">Edit</button></td>
+          <td><button class="edit-button"(click)="editActivity(activity.id)">Edit</button></td>
         </tr>
       </tbody>
     </table>

@@ -5,6 +5,12 @@ namespace FitTrackApp.WebAPI.Database
 {
     public partial class User
     {
+        public User()
+        {
+            Activities = new HashSet<Activity>();
+            Goals = new HashSet<Goal>();
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
@@ -23,5 +29,7 @@ namespace FitTrackApp.WebAPI.Database
         public int? RoleId { get; set; }
 
         public virtual Role? Role { get; set; }
+        public virtual ICollection<Activity> Activities { get; set; }
+        public virtual ICollection<Goal> Goals { get; set; }
     }
 }

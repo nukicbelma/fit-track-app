@@ -6,9 +6,9 @@
         <input type="text" id="name" [(ngModel)]="newActivity.name" name="name" required>
       </div>
       <div>
-        <label for="activityType">Activity type:</label>
-        <select id="activityType" [(ngModel)]="newActivity.activityType" name="activityType" required>
-          <option *ngFor="let type of activityTypes" [value]="type">{{ type }}</option>
+        <label for="activityTypeId">Activity type:</label>
+        <select id="activityTypeId" [(ngModel)]="newActivity.activityTypeId" name="activityTypeId" required>
+          <option *ngFor="let type of activityTypes" [value]="type.id">{{ type.name }}</option>
         </select>
       </div>
       <div>
@@ -23,12 +23,8 @@
         <label for="duration">Duration (min):</label>
         <input type="text" id="duration" [(ngModel)]="newActivity.duration" name="duration" required>
       </div>
-      <div>
-        <label for="user">User:</label>
-        <input type="text" id="user" [(ngModel)]="newActivity.user" name="user" required>
-      </div>
       <button type="submit">Add activity</button>
+      <button class="btn btn-secondary btn-block" (click)="cancel()">Cancel</button>
     </form>
-    <button (click)="cancel()">Cancel</button>
 </div>
   

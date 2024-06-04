@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-navigation-header',
@@ -7,7 +8,12 @@ import { Router } from '@angular/router';
   styleUrl: './navigation-header.component.css'
 })
 export class NavigationHeaderComponent {
-  constructor(
-    private router: Router
-  ) {}
+  constructor(public authService: AuthService) {
+    console.log(this.authService.isLoggedIn());
+  }
+
+  
+  logout(): void {
+    this.authService.logout();
+  }
 }

@@ -1,6 +1,7 @@
 ﻿using FitTrackApp.WebAPI.DTOs;
 using FitTrackApp.WebAPI.Interfaces;
 using FitTrackApp.WebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitTrackApp.WebAPI.Controllers
@@ -12,7 +13,7 @@ namespace FitTrackApp.WebAPI.Controllers
     {
         private readonly IUserService _service;
 
-        public UserController(IUserService service)
+        public UserController(IUserService service, IHttpContextAccessor httpContextAccessor)
         {
             _service = service;
         }
