@@ -40,10 +40,10 @@ namespace FitTrackApp.WebAPI.Controllers
             _service.Update(id, request);
         }
 
-        /*[HttpDelete("{id}")]
+        [HttpDelete("{id}")]
         public async Task<bool> Delete(int id)
         {
             return await _service.Delete(id);
-        }*/
+        }
     }
 }

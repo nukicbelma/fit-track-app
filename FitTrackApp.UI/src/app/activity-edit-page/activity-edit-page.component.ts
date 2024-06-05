@@ -23,14 +23,18 @@ export class ActivityEditPageComponent {
   ngOnInit(): void {
 
     this.loadActivityTypes();
+    this.loadActivitybyId();
+  }
+
+  loadActivitybyId(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if(id!=null) {
     this.activityId = +id;
     this.activityService.getActivityById(this.activityId).subscribe((data) => {
       this.activity = data;
     });
-  }
-  }
+    }
+  }  
 
   loadActivityTypes(): void {
     this.activityService.getActivityTypes().subscribe(data => {

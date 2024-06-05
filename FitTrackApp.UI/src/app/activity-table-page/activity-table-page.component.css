@@ -75,3 +75,18 @@ input[type="date"] {
 .edit-button:hover {
   background-color: rgb(82, 112, 98);
 }
+
+.delete-button {
+  color:white;
+  background-color: #765252;
+  border: none;
+  padding: 0.25em 0.5em;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  display: block;
+}
+
+.delete-button:hover {
+  background-color: rgb(130, 66, 66);
+}

@@ -6,11 +6,12 @@
         <tr>
           <th>Activity</th>
           <th>Duration unit</th>
-          <th>Duration</th>
+          <th>Duration (min)</th>
           <th>Frequency</th>
           <th>Created date</th>
           <th>Updated date</th>
-          <th>Edit</th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -19,9 +20,10 @@
           <td>{{ goal.durationUnit }}</td>
           <td>{{ goal.duration }}</td>
           <td>{{ goal.frequency }}</td>
-          <td>{{ goal.createdDate | date:'short' }}</td>
-          <td>{{ goal.updatedDate | date:'short' }}</td>
+          <td>{{ goal.createdDate | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ goal.updatedDate | date: 'dd/MM/yyyy' }}</td>
           <td><button class="edit-button"(click)="editGoal(goal.id)">Edit</button></td>
+          <td><button class="delete-button"(click)="deleteGoal(goal.id)">Delete</button></td>
         </tr>
       </tbody>
     </table>

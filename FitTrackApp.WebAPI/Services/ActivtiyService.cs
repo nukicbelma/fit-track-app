@@ -90,5 +90,20 @@ namespace FitTrackApp.WebAPI.Services
 
             return _mapper.Map<Models.Activity>(entity);
         }
+        public virtual async Task<bool> Delete(int id)
+        {
+            var entity = await _context.Set<Activity>().FindAsync(id);
+            try
+            {
+                _context.Set<Activity>().Remove(entity);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

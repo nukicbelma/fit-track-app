@@ -10,5 +10,6 @@ namespace FitTrackApp.WebAPI.Interfaces
         Activity GetById(int id);
         public Activity Insert(ActivityUpsertDTO request);
         public Activity Update(int id, ActivityUpsertDTO request);
+        Task<bool> Delete(int id);
     }
 }

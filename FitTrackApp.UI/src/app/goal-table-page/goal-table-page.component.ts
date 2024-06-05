@@ -50,4 +50,19 @@ export class GoalTablePageComponent implements OnInit {
   editGoal(id: number): void {
     this.router.navigate(['/goal-edit', id]);
   }
+
+  deleteGoal(id: number): void {
+    if (confirm('Are you sure you want to delete this goal?')) {
+      this.goalService.deleteGoal(id).subscribe(
+        () => {
+          alert('Goal deleted successfully');
+          this.loadGoals();
+        },
+        error => {
+          console.error('Failed to delete goal', error);
+          alert('Failed to delete goal');
+        }
+      );
+    }
+  }
 }

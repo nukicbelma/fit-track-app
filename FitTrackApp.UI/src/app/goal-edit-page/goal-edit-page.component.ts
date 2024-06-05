@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoalService } from '../services/goal/goal.service';
+import { Activity } from '../models/activity';
+import { NgForm } from '@angular/forms';
+import { ActivityService } from '../services/activity/activity.service';
 
 
 @Component({
@@ -9,48 +12,59 @@ import { GoalService } from '../services/goal/goal.service';
   styleUrls: ['./goal-edit-page.component.css']
 })
 export class GoalEditPageComponent {
-  goal: any = {
-    activityId: null,
-    measureUnit: 'time',
-    duration: null,
-    frequency: null
-  };
+  goal: any = {};
+  goalId: number | undefined;
+  activities: Activity[] = [];
+  activitySearchRequest = { name: '', description: '', activityTypeId: '', startDate: '' };
+  successMessage: string = '';
+  errorMessage: string = ''; 
 
   constructor(
     private goalService: GoalService,
+    private activityService: ActivityService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.route.params.subscribe(params => {
-      const goalId = params['id'];
-      //this.loadGoal(goalId);
-    });
+  
+    this.loadActivities();
+    this.loadGoalbyId();
   }
 
-  /*loadGoal(goalId: string): void {
-    this.goalService.getGoalById(goalId).subscribe(
-      (data) => {
-        this.editedGoal = data;
-      },
-      (error) => {
-        console.error('Error fetching goal data', error);
-      }
-    );
-  }*/
-
- /* onSubmit(): void {
-    this.goalService.updateGoal(this.editedGoal).subscribe(
-      (response) => {
-        console.log('Goal updated successfully', response);
-        this.router.navigate(['/goals']);
-      },
-      (error) => {
-        console.error('Error updating goal', error);
-      }
-    );
-  }*/
+  loadGoalbyId(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if(id!=null) {
+    this.goalId = +id;
+    this.goalService.getGoalById(this.goalId).subscribe((data) => {
+      this.goal = data;
+    });
+    }
+  } 
+  
+  loadActivities(): void {
+    this.activityService.getActivities(this.activitySearchRequest).subscribe(data => {
+      this.activities = data;
+    });
+  } 
 
   cancel(): void {
     this.router.navigate(['/goals']);
+  }
+  
+  updateGoal(form: NgForm): void {
+    if (form.valid && this.goalId!=null) {
+     this.goalService.updateGoal(this.goalId, this.goal).subscribe(
+      response => {
+        this.successMessage = 'Goal updated successfully';
+        this.errorMessage = '';
+        setTimeout(() => {
+          this.router.navigate(['/goals']);
+        }, 1000);
+      },
+      error => {
+        this.errorMessage = 'Failed to update goal.';
+        this.successMessage = ''; 
+      }
+    );
+    }
   }
 }

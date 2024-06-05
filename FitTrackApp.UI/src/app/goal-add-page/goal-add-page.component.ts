@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Goal } from '../models/goal';
 import { ActivityService } from '../services/activity/activity.service';
+import { Activity } from '../models/activity';
+import { GoalService } from '../services/goal/goal.service';
 
 @Component({
   selector: 'app-goal-add-page',
@@ -10,22 +12,20 @@ import { ActivityService } from '../services/activity/activity.service';
 })
 export class GoalAddPageComponent {
   newGoal: Goal = {
-    activity: '',
-    userId: 0,
     durationUnit: '',
-    createdDate: new Date(),
-    updatedDate: new Date(),
+    createdDate: undefined,
+    updatedDate: undefined,
     duration: 0, 
     id:0,
-    user: '',
-    measureUnit: '',
     frequency: 0, 
     activityId: 0
   };
+  activities: Activity[] = [];
+  activitySearchRequest = { name: '', description: '', activityTypeId: '', startDate: '' };
+  successMessage: string = '';
+  errorMessage: string = ''; 
 
-  activities: string[] = [];
-
-  constructor(private activityService: ActivityService, private router: Router) { }
+  constructor(private activityService: ActivityService, private goalService: GoalService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadActivities();
@@ -36,28 +36,34 @@ export class GoalAddPageComponent {
   }
 
   loadActivities(): void {
-    /*this.activityService.getActivities().subscribe(data => {
+    this.activityService.getActivities(this.activitySearchRequest).subscribe(data => {
       this.activities = data;
-    });*
+    });
   }
 
   addGoal(form: any) {
-    /*const newGoal: Goal = {
-      name: form.value.name,
-      description: form.value.description,
-      activityType: form.activityType.value,
-      startDate: form.startDate.value,
-      duration: form.duration.value,
-      user: ''
+    const newGoal: Goal = {
+      id: form.value.id,
+      activityId: form.value.activityId,
+      durationUnit: form.value.durationUnit,
+      duration: form.value.duration, 
+      frequency: form.value.frequency,
+      //createdDate: new Date()
     };
 
-    this.goalService.addActivity(newGoal).subscribe(
+    
+    this.goalService.addGoal(newGoal).subscribe(
       response => {
-        this.router.navigate(['/activities']);
+        this.successMessage = 'Goal added successfully';
+        this.errorMessage = '';
+        setTimeout(() => {
+          this.router.navigate(['/goals']);
+        }, 2000);
       },
       error => {
-        console.error('Error adding activity', error);
+        this.errorMessage = 'Failed to add goal.';
+        this.successMessage = ''; 
       }
-    );*/
+    );
   }
 }

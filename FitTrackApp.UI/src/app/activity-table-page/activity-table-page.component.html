@@ -17,6 +17,7 @@
           <th>Start date</th>
           <th>Duration (min)</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +28,7 @@
           <td>{{ activity.startDate | date: 'dd/MM/yyyy' }}</td>
           <td>{{ activity.duration }}</td>
           <td><button class="edit-button"(click)="editActivity(activity.id)">Edit</button></td>
+          <td><button class="delete-button"(click)="deleteActivity(activity.id)">Delete</button></td>
         </tr>
       </tbody>
     </table>

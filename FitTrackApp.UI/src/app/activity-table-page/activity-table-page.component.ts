@@ -12,7 +12,7 @@ import { ActivityType } from '../models/activityType';
 export class ActivityTablePageComponent implements OnInit {
   activities: Activity[] = [];
   activityTypes: ActivityType[] = [];
-  activitySearchRequest = { name: '', description: '' , activityTypeId: '', startDate: ''};
+  activitySearchRequest = { name: '', description: '', activityTypeId: '', startDate: '' };
   activityTypeMap: Map<string, string> = new Map();
 
   constructor(private activityService: ActivityService, private router: Router) { }
@@ -51,7 +51,7 @@ export class ActivityTablePageComponent implements OnInit {
     this.loadActivities();
   }
 
-  addNewActivity() : void {
+  addNewActivity(): void {
     this.router.navigate(['/activity-add']);
   }
 
@@ -61,5 +61,20 @@ export class ActivityTablePageComponent implements OnInit {
 
   getActivityTypeName(typeId: string): string {
     return this.activityTypeMap.get(typeId) || 'Unknown';
+  }
+
+  deleteActivity(id: number): void {
+    if (confirm('Are you sure you want to delete this activity?')) {
+      this.activityService.deleteActivity(id).subscribe(
+        () => {
+          alert('Activity deleted successfully');
+          this.loadActivities(); // Refresh the list of activities
+        },
+        error => {
+          console.error('Failed to delete activity', error);
+          alert('Failed to delete activity');
+        }
+      );
+    }
   }
 }

@@ -36,10 +36,17 @@ namespace FitTrackApp.WebAPI.Services
             return _mapper.Map<List<Models.Goal>>(list);
         }
 
-        public async Task<Models.Goal> Insert(GoalUpsertDTO request)
+        public Models.Goal GetById(int id)
+        {
+            var entity = _context.Goals.Find(id);
+            return _mapper.Map<Models.Goal>(entity);
+        }
+
+        public Models.Goal Insert(GoalUpsertDTO request)
         {
             Goal entity = _mapper.Map<Goal>(request);
-
+            entity.UserId = 4;
+            entity.CreatedDate = DateTime.Now;
             //dodaj entity.userId = loggedUser.Id
             _context.Goals.Add(entity);
             _context.SaveChanges();
@@ -50,16 +57,16 @@ namespace FitTrackApp.WebAPI.Services
         public Models.Goal Update(int id, GoalUpsertDTO request)
         {
             var entity = _context.Goals.Where(x => x.Id == id).FirstOrDefault();
+            request.UpdatedDate = DateTime.Now;
 
-            //dodaj entity.userId = loggedUser.Id
-            _context.Goals.Attach(entity);
+            _mapper.Map(request, entity); 
+
             _context.Goals.Update(entity);
-
-            _mapper.Map(request, entity);
             _context.SaveChanges();
 
             return _mapper.Map<Models.Goal>(entity);
         }
+
 
         public virtual async Task<bool> Delete(int id)
         {

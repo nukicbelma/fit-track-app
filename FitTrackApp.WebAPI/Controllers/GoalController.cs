@@ -22,6 +22,12 @@ namespace FitTrackApp.WebAPI.Controllers
             return _service.GetAll();
         }
 
+        [HttpGet("{id}")]
+        public Models.Goal GetById(int id)
+        {
+            return _service.GetById(id);
+        }
+
         [HttpPost]
         public void Insert(GoalUpsertDTO request)
         {

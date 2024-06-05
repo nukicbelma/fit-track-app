@@ -34,13 +34,6 @@ export class ActivityAddPageComponent {
     });
   }
 
-  /*addActivity(): void {
-    // Implement the method to add a new activity
-    
-    // Navigate back to the activity table page after adding the activity
-    this.router.navigate(['/activities']);
-  }*/
-
   addActivity(form: any) {
     const newActivity: Activity = {
       id: form.value.id,

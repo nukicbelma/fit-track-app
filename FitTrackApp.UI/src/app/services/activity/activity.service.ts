@@ -55,4 +55,8 @@ export class ActivityService {
     return this.http.get<Activity>(`${this.activityUrl}/${id}`);
   }
 
+  deleteActivity(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.activityUrl}/${id}`);
+  }
+
 }
