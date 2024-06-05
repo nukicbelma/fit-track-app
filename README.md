@@ -14,7 +14,7 @@ The backend of FitTrack is implemented as a RESTful API using C# and ASP.NET.
 - **Password:** admin
 
 ### Database Diagram
-![Database_diagram](https://github.com/nukicbelma/FitTrackApp/assets/92430755/a7d87774-b300-4128-86e7-b0c48e535ab4)
+![Database_diagram](https://github.com/nukicbelma/FitTrackApp/assets/92430755/879527f4-c338-4916-b5d8-d06fa840ff21)
 
 ### Basic Core Functionalities (with Pictures)
 
@@ -55,8 +55,13 @@ Users can search activities by name and description.
 #### Setting Personal Goals
 Users can set personal goals, such as the sum of all activities during the day or the total duration of activities during the day. Example goals: activity 1x per day or 30 mins per day.
 
-**Example 7: Goal Setting UI**
-* (Include an image if available) *
+**Example 7, 8, 9: Goal Setting (View/table/list, edit, add, delete(same as prev.)) **
+
+![15_goalTablePage](https://github.com/nukicbelma/FitTrackApp/assets/92430755/6299852c-1bf6-485a-a460-6f6a690f5d36)
+
+![17_goalTablePage_addgoal](https://github.com/nukicbelma/FitTrackApp/assets/92430755/00e9a3ca-cc07-4130-b403-3eae374bb538)
+
+![image](https://github.com/nukicbelma/FitTrackApp/assets/92430755/f0963d46-6f2f-48a7-9218-262b5413126b)
 
 ### Basic UI/UX, AJAX Techniques, REST API
 
