@@ -61,7 +61,8 @@ Users can set personal goals, such as the sum of all activities during the day o
 
 ![17_goalTablePage_addgoal](https://github.com/nukicbelma/FitTrackApp/assets/92430755/00e9a3ca-cc07-4130-b403-3eae374bb538)
 
-![image](https://github.com/nukicbelma/FitTrackApp/assets/92430755/f0963d46-6f2f-48a7-9218-262b5413126b)
+![16_goalTablePage_editgoal](https://github.com/nukicbelma/FitTrackApp/assets/92430755/4d0f1571-0972-48fa-b1ea-28f58c34c856)
+
 
 ### Basic UI/UX, AJAX Techniques, REST API
 
