@@ -18,7 +18,7 @@ The backend of FitTrack is implemented as a RESTful API using C# and ASP.NET.
 
 ### Basic Core Functionalities (with Pictures)
 
-#### 1. Entering a Fitness Activity
+####  Entering a Fitness Activity
 Users can add, edit, and delete fitness activities. Activity details include name, description, start date, activity type, and duration time.
 
 **Example 1: Listed Activities (Table)**
@@ -30,13 +30,13 @@ Users can add, edit, and delete fitness activities. Activity details include nam
 **Example 3: Edit Activity**
 ![12_activtiyTablePage_editActivity](https://github.com/nukicbelma/FitTrackApp/assets/92430755/7a5c3f0a-8890-4c52-9f43-7e9943faf05a)
 
-#### 2. Predefined Activity Types
+####  Predefined Activity Types
 Activity types are predefined values (from a dropdown list): run, walk, hike, swim, etc.
 
 **Example 4: Predefined Activity Types from Dropdown List (Displayed in Add/Edit Activity)**
 ![14_activityTablePage_predefinedActivityTypes](https://github.com/nukicbelma/FitTrackApp/assets/92430755/8ba73689-b06d-4e0e-a0b7-a18414f4e562)
 
-#### 3. Filtering Activities
+####  Filtering Activities
 Users can filter activities by start date and activity type.
 
 **Example 5: Filtering by Date and Activity Type**
@@ -44,7 +44,7 @@ Users can filter activities by start date and activity type.
 
 ![9_activityTablePage_dateFilter](https://github.com/nukicbelma/FitTrackApp/assets/92430755/4480ace4-7d7b-4718-8031-f86160c95980)
 
-#### 4. Searching Activities
+####  Searching Activities
 Users can search activities by name and description.
 
 **Example 6: Filtering (Search Bar) by Name and Description**
@@ -52,7 +52,7 @@ Users can search activities by name and description.
 
 ![7_activityTablePage_descriptionFilter](https://github.com/nukicbelma/FitTrackApp/assets/92430755/eaeb27f8-524c-465e-a43c-2192172636e7)
 
-#### 5. Setting Personal Goals
+#### Setting Personal Goals
 Users can set personal goals, such as the sum of all activities during the day or the total duration of activities during the day. Example goals: activity 1x per day or 30 mins per day.
 
 **Example 7: Goal Setting UI**
