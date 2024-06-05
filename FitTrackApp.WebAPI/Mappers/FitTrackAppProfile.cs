@@ -27,7 +27,10 @@ namespace FitTrackApp.WebAPI.Mappers
 
             CreateMap<Database.Goal, Models.Goal>().ReverseMap();
             CreateMap<GoalUpsertDTO, Database.Goal>();
-            
+
+            CreateMap<Database.Achievement, Models.Achievment>().ReverseMap();
+            CreateMap<AchievmentUpsertDTO, Database.Achievement>();
+
         }
     }
 }

@@ -65,4 +65,8 @@ export class GoalTablePageComponent implements OnInit {
       );
     }
   }
+
+  viewAchievments(): void {
+    this.router.navigate(['/achievments']);
+  }
 }

@@ -7,7 +7,7 @@
             <ul>
                 <span class="left-align">
                     <li><a href="#" routerLink="/" class="menu-item">Home</a></li>
-                    <ng-container *ngIf="!authService.isLoggedIn()">
+                    <ng-container *ngIf="authService.isLoggedIn()">
                         <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
                     </ng-container>
                     <ng-container *ngIf="!authService.isLoggedIn()">

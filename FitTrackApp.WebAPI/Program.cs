@@ -58,6 +58,7 @@ builder.Services.AddScoped<IActivityTypeService, ActivityTypeService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IGoalService, GoalService>();
+builder.Services.AddScoped<IAchievmentService, AchievmentService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

@@ -16,6 +16,7 @@ namespace FitTrackApp.WebAPI.Database
         {
         }
 
+        public virtual DbSet<Achievement> Achievements { get; set; } = null!;
         public virtual DbSet<Activity> Activities { get; set; } = null!;
         public virtual DbSet<ActivityType> ActivityTypes { get; set; } = null!;
         public virtual DbSet<Goal> Goals { get; set; } = null!;
@@ -33,6 +34,18 @@ namespace FitTrackApp.WebAPI.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Achievement>(entity =>
+            {
+                entity.ToTable("Achievement");
+
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.HasOne(d => d.Goal)
+                    .WithMany(p => p.Achievements)
+                    .HasForeignKey(d => d.GoalId)
+                    .HasConstraintName("fk_goal_achievment");
+            });
+
             modelBuilder.Entity<Activity>(entity =>
             {
                 entity.ToTable("Activity");

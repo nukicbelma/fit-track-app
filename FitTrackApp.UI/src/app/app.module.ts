@@ -18,6 +18,7 @@ import { GoalAddPageComponent } from './goal-add-page/goal-add-page.component';
 import { ActivityEditPageComponent } from './activity-edit-page/activity-edit-page.component';
 import { GoalEditPageComponent } from './goal-edit-page/goal-edit-page.component';
 import { PopupMessageComponent } from './popup-message/popup-message.component';
+import { AchievmentTablePageComponent } from './achievment-table-page/achievment-table-page.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PopupMessageComponent } from './popup-message/popup-message.component';
     LoginPageComponent,
     ActivityEditPageComponent,
     GoalEditPageComponent,
-    PopupMessageComponent    
+    PopupMessageComponent,
+    AchievmentTablePageComponent    
   ],
   imports: [
     BrowserModule,
