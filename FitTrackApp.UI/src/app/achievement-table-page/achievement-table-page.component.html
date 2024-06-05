@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <h3>Achievements</h3>
+  <div class="button-container">
+    <a href="#" class="add-button">Add new achievement</a>
+  </div>
+  <table class="table activity-table">
+    <thead>
+      <tr>
+        <th>Goal</th>
+        <th>Date</th>
+        <th>Achieved time</th>
+        <th>Achieved frequency</th>
+        <th>Achieved</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let achievement of achievements" [style.background-color]="achievement.achieved ? '#a2e8a2' : '#ffcccc'">
+        <td>{{ getActivityName(achievement.goalId) }}</td>
+        <td>{{ achievement.date | date }}</td>
+        <td>{{ achievement.achievedTime }}</td>
+        <td>{{ achievement.achievedFrequency }}</td>
+        <td>{{ achievement.achieved ? 'Yes' : 'No' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -9,5 +9,7 @@
         public int? AchievedFrequency { get; set; }
 
         public virtual Goal? Goal { get; set; }
+
+        public bool? Achieved { get; set; }
     }
 }

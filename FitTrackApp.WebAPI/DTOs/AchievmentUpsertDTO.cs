@@ -7,5 +7,6 @@
         public DateTime? Date { get; set; }
         public int? AchievedTime { get; set; }
         public int? AchievedFrequency { get; set; }
+        public bool? Achieved { get; set; }
     }
 }

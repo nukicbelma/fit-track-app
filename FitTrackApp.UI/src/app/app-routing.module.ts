@@ -10,7 +10,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { GoalAddPageComponent } from './goal-add-page/goal-add-page.component';
 import { ActivityEditPageComponent } from './activity-edit-page/activity-edit-page.component';
 import { GoalEditPageComponent } from './goal-edit-page/goal-edit-page.component';
-import { AchievmentTablePageComponent } from './achievment-table-page/achievment-table-page.component';
+import { AchievementTablePageComponent } from './achievement-table-page/achievement-table-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'goals', component: GoalTablePageComponent },
   { path: 'goal-add', component: GoalAddPageComponent },
   { path: 'goal-edit/:id', component: GoalEditPageComponent },
-  { path: 'achievments', component: AchievmentTablePageComponent },
+  { path: 'achievements', component: AchievementTablePageComponent },
   { path: 'logout', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
 
