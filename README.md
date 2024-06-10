@@ -63,6 +63,18 @@ Users can set personal goals, such as the sum of all activities during the day o
 
 ![16_goalTablePage_editgoal](https://github.com/nukicbelma/FitTrackApp/assets/92430755/4d0f1571-0972-48fa-b1ea-28f58c34c856)
 
+#### Achievement overview
+
+Users can access and manage their achievements by clicking the "View Achievements" button on the previous Goal table page. Each achievement is associated with a specific goal and activity, providing the following column information. The crucial element is the "achieved" boolean, indicating whether the goal has been accomplished. If the achievement's duration (achieved time) is equal to or less than the set goal duration, the achievement is considered successful; otherwise, it's marked as a failure. Alternatively, if the goal is defined by a frequency rather than a duration, the "achieved" boolean reflects whether the achievement's frequency matches or exceeds that of the goal.
+
+Achievements that are successfully achieved are displayed as green rows. Otherwise, the failed ones are red.
+**Example 10: Achievement table, column information. The record (achievement) is presented in relation to the success of the goal, using red and green colors.
+
+![18_achievementTablePage](https://github.com/nukicbelma/FitTrackApp/assets/92430755/d2b423d1-8fc2-4213-8f1f-301702f3f2af)
+
+**Example 11: Adding achievements: Goals are listed in a select list with a predefined activity name for each specific goal. Each goal can have either a defined duration or frequency. Consequently, the new achievement record follows the same pattern: if you select a goal with a defined duration, the achievement can only specify an achieved time (duration); alternatively, if you choose a goal with a defined frequency, the new achievement record can only specify a frequency.
+
+![19_addAchievementPage](https://github.com/nukicbelma/FitTrackApp/assets/92430755/ab9a094a-800f-4f62-a6fc-d922608ade67)
 
 ### Basic UI/UX, AJAX Techniques, REST API
 
