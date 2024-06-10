@@ -1,6 +1,6 @@
 ﻿namespace FitTrackApp.WebAPI.DTOs
 {
-    public class AchievmentUpsertDTO
+    public class AchievementUpsertDTO
     {
         public int Id { get; set; }
         public int? GoalId { get; set; }

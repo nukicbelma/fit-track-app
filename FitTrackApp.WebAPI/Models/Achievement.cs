@@ -1,6 +1,6 @@
 ﻿namespace FitTrackApp.WebAPI.Models
 {
-    public class Achievment
+    public class Achievement
     {
         public int Id { get; set; }
         public int? GoalId { get; set; }

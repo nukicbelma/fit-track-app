@@ -19,6 +19,7 @@ import { ActivityEditPageComponent } from './activity-edit-page/activity-edit-pa
 import { GoalEditPageComponent } from './goal-edit-page/goal-edit-page.component';
 import { PopupMessageComponent } from './popup-message/popup-message.component';
 import { AchievementTablePageComponent } from './achievement-table-page/achievement-table-page.component';
+import { AchievementAddPageComponent } from './achievement-add-page/achievement-add-page.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AchievementTablePageComponent } from './achievement-table-page/achievem
     ActivityEditPageComponent,
     GoalEditPageComponent,
     PopupMessageComponent,
-    AchievementTablePageComponent    
+    AchievementTablePageComponent,
+    AchievementAddPageComponent    
   ],
   imports: [
     BrowserModule,

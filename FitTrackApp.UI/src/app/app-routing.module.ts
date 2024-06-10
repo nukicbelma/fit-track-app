@@ -11,6 +11,7 @@ import { GoalAddPageComponent } from './goal-add-page/goal-add-page.component';
 import { ActivityEditPageComponent } from './activity-edit-page/activity-edit-page.component';
 import { GoalEditPageComponent } from './goal-edit-page/goal-edit-page.component';
 import { AchievementTablePageComponent } from './achievement-table-page/achievement-table-page.component';
+import { AchievementAddPageComponent } from './achievement-add-page/achievement-add-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'goal-add', component: GoalAddPageComponent },
   { path: 'goal-edit/:id', component: GoalEditPageComponent },
   { path: 'achievements', component: AchievementTablePageComponent },
+  { path: 'achievement-add', component: AchievementAddPageComponent },
   { path: 'logout', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
 

@@ -1,0 +1,28 @@
+<div class="wrapper">
+  <h3>Add new achievement</h3>
+  <form (ngSubmit)="onSubmit()" #achievementForm="ngForm">
+    <div class="form-group">
+      <label for="goalId">Goal</label>
+      <select id="goalId" name="goalId" [(ngModel)]="achievement.goalId" (change)="onGoalChange($event)" required class="form-control">
+        <option *ngFor="let goal of goals" [value]="goal.id">{{ getActivityName(goal.activityId) }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input type="date" id="date" name="date" [(ngModel)]="achievement.date" required class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="achievedTime">Achieved time</label>
+      <input type="number" id="achievedTime" name="achievedTime" [(ngModel)]="achievement.achievedTime" class="form-control" [disabled]="!selectedGoal || !selectedGoal.duration">
+    </div>
+    <div class="form-group">
+      <label for="achievedFrequency">Achieved frequency</label>
+      <input type="number" id="achievedFrequency" name="achievedFrequency" [(ngModel)]="achievement.achievedFrequency" class="form-control" [disabled]="!selectedGoal || !selectedGoal.frequency">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Add achievement</button>
+    <button class="btn btn-secondary btn-block" (click)="cancel()">Cancel</button>
+  </form>
+
+  <app-popup-message *ngIf="successMessage" [message]="successMessage" type="success"></app-popup-message>
+  <app-popup-message *ngIf="errorMessage" [message]="errorMessage" type="error"></app-popup-message>
+</div>

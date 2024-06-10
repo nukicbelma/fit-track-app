@@ -10,27 +10,27 @@ namespace FitTrackApp.WebAPI.Controllers
     //[Authorize]
     public class AchievmentController : Controller
     {
-        private readonly IAchievmentService _service;
+        private readonly IAchievementService _service;
 
-        public AchievmentController(IAchievmentService service)
+        public AchievmentController(IAchievementService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public List<Achievment> GetAll()
+        public List<Achievement> GetAll()
         {
             return _service.GetAll();
         }
 
         [HttpPost]
-        public Achievment Insert([FromBody] AchievmentUpsertDTO request)
+        public async Task<Achievement> Insert([FromBody] AchievementUpsertDTO request)
         {
-            return  _service.Insert(request);
+            return await _service.Insert(request);
         }
 
         [HttpPut("{id}")]
-        public Achievment Update(int id, [FromBody] AchievmentUpsertDTO request)
+        public Achievement Update(int id, [FromBody] AchievementUpsertDTO request)
         {
             return _service.Update(id, request);
         }

@@ -1,8 +1,8 @@
 export interface Achievement {
   id: number;
   goalId: number;
-  date?: Date;
+  date: Date;
   achievedTime?: number;
   achievedFrequency?: number;
-  achieved?: boolean;
+  achieved: boolean;
 }

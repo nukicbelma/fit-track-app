@@ -14,7 +14,10 @@ export class AchievementService {
   constructor(private http: HttpClient) {}
 
   getAchievements(): Observable<Achievement[]> {
-    console.log("test")
     return this.http.get<Achievement[]>(this.achievementUrl);
+  }
+
+  addAchievement(achievement: Achievement): Observable<Achievement> {
+    return this.http.post<Achievement>(`${this.achievementUrl}/`, achievement);
   }
 }
