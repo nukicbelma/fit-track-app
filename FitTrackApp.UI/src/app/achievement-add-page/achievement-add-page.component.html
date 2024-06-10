@@ -12,7 +12,7 @@
       <input type="date" id="date" name="date" [(ngModel)]="achievement.date" required class="form-control">
     </div>
     <div class="form-group">
-      <label for="achievedTime">Achieved time</label>
+      <label for="achievedTime">Achieved time (min)</label>
       <input type="number" id="achievedTime" name="achievedTime" [(ngModel)]="achievement.achievedTime" class="form-control" [disabled]="!selectedGoal || !selectedGoal.duration">
     </div>
     <div class="form-group">
