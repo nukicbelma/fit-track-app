@@ -3,24 +3,30 @@ using FitTrackApp.WebAPI.Database;
 using FitTrackApp.WebAPI.DTOs;
 using FitTrackApp.WebAPI.Interfaces;
 
-
 namespace FitTrackApp.WebAPI.Services
 {
     public class ActivityService : IActivityService
     {
         private readonly IMapper _mapper;
-        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IAuthService _authService;
         private readonly FitTrackContext _context;
 
-        public ActivityService(FitTrackContext context, IMapper mapper, IHttpContextAccessor contextAccessor)
+        public ActivityService(FitTrackContext context, IMapper mapper, IAuthService authService)
         {
             _context = context;
             _mapper = mapper;
-            _contextAccessor = contextAccessor;
+            _authService = authService;
         }
         public List<Models.Activity> GetAll(ActivitySearchDTO search)
         {
             var query = _context.Activities.AsQueryable();
+
+            //get activities by loggedin user
+            var loggedInUser = _authService.GetCurrentUser().Id;
+            if ((!string.IsNullOrWhiteSpace((loggedInUser).ToString())) && loggedInUser != 0)
+            {
+                query = query.Where(x => x.UserId == loggedInUser);
+            }
 
             if (!string.IsNullOrWhiteSpace(search?.Name))
             {
@@ -65,10 +71,15 @@ namespace FitTrackApp.WebAPI.Services
 
         public Models.Activity Insert(ActivityUpsertDTO request)
         {
+            var userId = _authService.GetCurrentUser().Id;
+            if (userId == null)
+            {
+                throw new Exception("User is not logged in.");
+            }
+            request.UserId = userId;
+
             Activity entity = _mapper.Map<Activity>(request);
-            
-            //entity.UserId = Int32.Parse(_contextAccessor.HttpContext.Session.GetString("UserId"));
-            entity.Id = request.Id;
+
             _context.Activities.Add(entity);
             _context.SaveChanges();
 
@@ -78,10 +89,14 @@ namespace FitTrackApp.WebAPI.Services
         public Models.Activity Update(int id, ActivityUpsertDTO request)
         {
             var entity = _context.Activities.Where(x => x.Id == id).FirstOrDefault();
-            entity.UserId = 4;
-            //entity.UserId=Int32.Parse( _contextAccessor.HttpContext.Session.GetString("UserId"));
 
-            //dodaj entity.userId = loggedUser.Id
+            var userId = _authService.GetCurrentUser().Id;
+            if (userId == null)
+            {
+                throw new Exception("User is not logged in.");
+            }
+            request.UserId = userId;
+
             _context.Activities.Attach(entity);
             _context.Activities.Update(entity);
 

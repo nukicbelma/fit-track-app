@@ -8,7 +8,7 @@ namespace FitTrackApp.WebAPI.Controllers
 {
         [ApiController]
         [Route("[controller]")]
-        //[Authorize]
+        [Authorize]
         public class ActivityTypeController : Controller
         {
             private readonly IActivityTypeService _service;

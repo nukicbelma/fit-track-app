@@ -7,7 +7,7 @@ namespace FitTrackApp.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     public class GoalController : ControllerBase
     {
         private readonly IGoalService _service;

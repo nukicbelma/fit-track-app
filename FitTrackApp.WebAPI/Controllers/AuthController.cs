@@ -1,37 +1,51 @@
-﻿using AutoMapper;
-using FitTrackApp.WebAPI.DTOs;
+﻿using FitTrackApp.WebAPI.DTOs;
 using FitTrackApp.WebAPI.Interfaces;
-using FitTrackApp.WebAPI.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
-namespace API.Controllers
+namespace FitTrackApp.WebAPI.Controllers
 {
+    [Route("[controller]")]
     [ApiController]
-    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IUserService _service;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IMapper _mapper;
+        private readonly IAuthService _authService;
 
-        public AuthController(IMapper mapper, IHttpContextAccessor httpContextAccessor, IUserService service)
+        public AuthController(IAuthService authService)
         {
-            _mapper = mapper;
-            _httpContextAccessor = httpContextAccessor;
-            _service = service;
-
+            _authService = authService;
         }
 
         [HttpPost("Login")]
-        [AllowAnonymous]
-        public ActionResult<User> Login([FromBody] UserLoginDTO request)
+        public async Task<IActionResult> Login([FromBody] UserLoginDTO request)
         {
-            return _service.Login(request, _httpContextAccessor.HttpContext);
+            var result = await _authService.Login(request);
+            if (result)
+            {
+                return Ok(new { Message = "Login successful" });
+            }
+            return Unauthorized(new { Message = "Invalid credentials" });
         }
 
+        [HttpPost("Logout")]
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> Logout()
+        {
+            await _authService.Logout();
+            return Ok(new { Message = "Logout successful" });
+        }
+
+        [HttpGet("Current-User")]
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        public IActionResult GetCurrentUser()
+        {
+            var user = _authService.GetCurrentUser();
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(user);
+        }
     }
 }

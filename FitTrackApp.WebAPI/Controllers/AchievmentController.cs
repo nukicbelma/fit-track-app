@@ -1,13 +1,14 @@
 ﻿using FitTrackApp.WebAPI.DTOs;
 using FitTrackApp.WebAPI.Interfaces;
 using FitTrackApp.WebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitTrackApp.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     public class AchievmentController : Controller
     {
         private readonly IAchievementService _service;

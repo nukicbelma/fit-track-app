@@ -7,7 +7,7 @@ namespace FitTrackApp.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     public class ActivityController : ControllerBase
     {
         private readonly IActivityService _service;
@@ -38,6 +38,7 @@ namespace FitTrackApp.WebAPI.Controllers
         public void Update(int id, [FromBody] ActivityUpsertDTO request)
         {
             _service.Update(id, request);
+
         }
 
         [HttpDelete("{id}")]

@@ -3,13 +3,12 @@ using FitTrackApp.WebAPI.Interfaces;
 using FitTrackApp.WebAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace FitTrackApp.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     public class RoleController : Controller
     {
         private readonly IRoleService _service;

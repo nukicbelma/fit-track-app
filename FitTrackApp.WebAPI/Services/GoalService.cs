@@ -9,15 +9,25 @@ namespace FitTrackApp.WebAPI.Services
     {
         private readonly IMapper _mapper;
         private readonly FitTrackContext _context;
+        private readonly IAuthService _authService;
 
-        public GoalService(FitTrackContext context, IMapper mapper)
+        public GoalService(FitTrackContext context, IMapper mapper, IAuthService authService)
         {
             _context = context;
             _mapper = mapper;
+            _authService = authService;
         }
         public List<Models.Goal> GetAll()
         {
             var query = _context.Goals.AsQueryable();
+
+            //get activities by loggedin user
+            var loggedInUser = _authService.GetCurrentUser().Id;
+            if ((!string.IsNullOrWhiteSpace((loggedInUser).ToString())) && loggedInUser != 0)
+            {
+                query = query.Where(x => x.UserId == loggedInUser);
+            }
+
             var list = query.ToList();
 
             return _mapper.Map<List<Models.Goal>>(list);
@@ -44,10 +54,16 @@ namespace FitTrackApp.WebAPI.Services
 
         public Models.Goal Insert(GoalUpsertDTO request)
         {
+
+            var userId = _authService.GetCurrentUser().Id;
+            if (userId == null)
+            {
+                throw new Exception("User is not logged in.");
+            }
+            request.UserId = userId;
+
             Goal entity = _mapper.Map<Goal>(request);
-            entity.UserId = 4;
-            entity.CreatedDate = DateTime.Now;
-            //dodaj entity.userId = loggedUser.Id
+
             _context.Goals.Add(entity);
             _context.SaveChanges();
 
@@ -57,7 +73,13 @@ namespace FitTrackApp.WebAPI.Services
         public Models.Goal Update(int id, GoalUpsertDTO request)
         {
             var entity = _context.Goals.Where(x => x.Id == id).FirstOrDefault();
-            request.UpdatedDate = DateTime.Now;
+            
+            var userId = _authService.GetCurrentUser().Id;
+            if (userId == null)
+            {
+                throw new Exception("User is not logged in.");
+            }
+            request.UserId = userId;
 
             _mapper.Map(request, entity); 
 

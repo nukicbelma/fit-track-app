@@ -4,8 +4,6 @@ using FitTrackApp.WebAPI.DTOs;
 using FitTrackApp.WebAPI.Helpers;
 using FitTrackApp.WebAPI.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authentication;
 
 namespace FitTrackApp.WebAPI.Services
 {
@@ -81,29 +79,6 @@ namespace FitTrackApp.WebAPI.Services
             _context.SaveChanges();
 
             return _mapper.Map<Models.User>(entity);
-        }
-
-        public Models.User Login(UserLoginDTO request, HttpContext httpContext)
-        {
-            var user = _context.Users
-                .Include(e => e.Role)
-                .FirstOrDefault(x => x.Username == request.Username);
-
-            if (user == null)
-            {
-                return null;
-            }
-
-            var newHash = HashGenerator.GenerateHash(user.PasswordSalt, request.Password);
-
-            if (user.PasswordHash != newHash)
-            {
-                return null;
-            }
-
-            httpContext.Session.SetString("UserId", user.Id.ToString());
-
-            return _mapper.Map<Models.User>(user);
         }
 
     }

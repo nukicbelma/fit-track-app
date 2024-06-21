@@ -2,7 +2,6 @@
 using FitTrackApp.WebAPI.Database;
 using FitTrackApp.WebAPI.DTOs;
 using FitTrackApp.WebAPI.Interfaces;
-using Microsoft.VisualStudio.Services.Users;
 
 namespace FitTrackApp.WebAPI.Services
 {

@@ -11,20 +11,17 @@ namespace FitTrackApp.WebAPI.Security
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        private readonly IUserService _userService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAuthService _authService;
 
         public BasicAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
-            IHttpContextAccessor httpContextAccessor,
-            IUserService userService)
+            IAuthService authService)
             : base(options, logger, encoder, clock)
         {
-            _userService = userService;
-            _httpContextAccessor = httpContextAccessor;
+            _authService = authService;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -42,10 +39,10 @@ namespace FitTrackApp.WebAPI.Security
                 var password = credentials[1];
                 var UserLogin = new UserLoginDTO
                 {
-                    Username=username, 
-                    Password=password
+                    Username = username,
+                    Password = password
                 };
-                user = _userService.Login(UserLogin, _httpContextAccessor.HttpContext);
+                user = _authService.Authenticate(UserLogin);
             }
             catch
             {
@@ -55,21 +52,12 @@ namespace FitTrackApp.WebAPI.Security
             if (user == null)
                 return AuthenticateResult.Fail("Invalid Username or Password");
 
-            var claims = new List<Claim>();
-
-            if (user != null)
+            var claims = new List<Claim>
             {
-                claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Username));
-                claims.Add(new Claim(ClaimTypes.Name, user.FirstName));
-                claims.Add(new Claim(ClaimTypes.Role, user.Role.Name));
-                
-            }
-            else
-            {
-                claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Username));
-                claims.Add(new Claim(ClaimTypes.Name, user.FirstName));
-                claims.Add(new Claim(ClaimTypes.Role, "Client"));
-            }
+                new Claim(ClaimTypes.NameIdentifier, user.Username),
+                new Claim(ClaimTypes.Name, user.FirstName),
+                new Claim(ClaimTypes.Role, user.Role.Name)
+            };
 
             var identity = new ClaimsIdentity(claims, Scheme.Name);
             var principal = new ClaimsPrincipal(identity);

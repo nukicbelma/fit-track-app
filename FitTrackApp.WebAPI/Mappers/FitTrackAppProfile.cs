@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FitTrackApp.WebAPI.DTOs;
-using Microsoft.AspNetCore.Identity;
 
 namespace FitTrackApp.WebAPI.Mappers
 {
