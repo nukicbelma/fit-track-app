@@ -50,19 +50,6 @@ namespace FitTrackApp.WebAPI.Services
             return _mapper.Map<List<Models.Activity>>(list);
         }
 
-        public List<Models.Activity> GetAllByUser(int userId)
-        {
-            var query = _context.Activities.AsQueryable();
-
-            if ((!string.IsNullOrWhiteSpace((userId).ToString())) && userId != 0)
-            {
-                query = query.Where(x => x.UserId == userId);
-            }
-
-            var list = query.ToList();
-            return _mapper.Map<List<Models.Activity>>(list);
-        }
-
         public Models.Activity GetById(int id)
         {
             var entity = _context.Activities.Find(id);

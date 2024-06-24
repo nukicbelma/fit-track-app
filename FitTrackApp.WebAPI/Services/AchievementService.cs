@@ -9,15 +9,27 @@ namespace FitTrackApp.WebAPI.Services
     {
         private readonly FitTrackContext _context;
         private readonly IMapper _mapper;
-
-        public AchievementService(FitTrackContext context, IMapper mapper)
+        private readonly IAuthService _authService;
+        public AchievementService(FitTrackContext context, IMapper mapper, IAuthService authService)
         {
             _context = context;
             _mapper = mapper;
+            _authService = authService;
         }
         public List<Models.Achievement> GetAll()
         {
             var query = _context.Achievements.AsQueryable();
+
+            //get achievements by loggedin user
+            var loggedInUser = _authService.GetCurrentUser().Id;
+            if ((!string.IsNullOrWhiteSpace((loggedInUser).ToString())) && loggedInUser != 0)
+            {
+                 query = from achievement in _context.Achievements
+                            join goal in _context.Goals on achievement.GoalId equals goal.Id
+                            where goal.UserId == loggedInUser
+                            select achievement;
+            }
+           
             var list = query.ToList();
             return _mapper.Map<List<Models.Achievement>>(list);
         }

@@ -21,7 +21,7 @@ namespace FitTrackApp.WebAPI.Services
         {
             var query = _context.Goals.AsQueryable();
 
-            //get activities by loggedin user
+            //get goals by loggedin user
             var loggedInUser = _authService.GetCurrentUser().Id;
             if ((!string.IsNullOrWhiteSpace((loggedInUser).ToString())) && loggedInUser != 0)
             {
@@ -30,19 +30,6 @@ namespace FitTrackApp.WebAPI.Services
 
             var list = query.ToList();
 
-            return _mapper.Map<List<Models.Goal>>(list);
-        }
-
-        public List<Models.Goal> GetAllByUser(int userId)
-        {
-            var query = _context.Goals.AsQueryable();
-
-            if ((!string.IsNullOrWhiteSpace((userId).ToString())) && userId != 0)
-            {
-                query = query.Where(x => x.UserId == userId);
-            }
-
-            var list = query.ToList();
             return _mapper.Map<List<Models.Goal>>(list);
         }
 

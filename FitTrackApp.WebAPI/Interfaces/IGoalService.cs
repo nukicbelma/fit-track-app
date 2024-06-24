@@ -6,7 +6,6 @@ namespace FitTrackApp.WebAPI.Interfaces
     public interface IGoalService
     {
         List<Goal> GetAll();
-        List<Goal> GetAllByUser(int userId);
         Goal GetById(int id);
         public Goal Insert(GoalUpsertDTO request);
         public Goal Update(int id, GoalUpsertDTO request);
