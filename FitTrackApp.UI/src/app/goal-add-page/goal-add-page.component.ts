@@ -47,8 +47,7 @@ export class GoalAddPageComponent {
       activityId: form.value.activityId,
       durationUnit: form.value.durationUnit,
       duration: form.value.duration, 
-      frequency: form.value.frequency,
-      //createdDate: new Date()
+      frequency: form.value.frequency
     };
 
     

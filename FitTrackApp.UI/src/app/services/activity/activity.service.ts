@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Activity } from '../../models/activity';
 import { ActivityType } from '../../models/activityType';
 
@@ -15,7 +15,7 @@ interface ActivitySearchRequest {
   providedIn: 'root'
 })
 export class ActivityService {
-  private activityUrl = 'https://localhost:5001/Activity'; 
+  private activityUrl = 'https://localhost:5001/Activity';
   private activityTypeUrl = 'https://localhost:5001/ActivityType';
 
   constructor(private http: HttpClient) { }
@@ -35,28 +35,70 @@ export class ActivityService {
       params = params.set('startDate', activitySearchRequest.startDate);
     }
 
-    return this.http.get<Activity[]>(this.activityUrl, { params });
+    const httpOptions = {
+      params: params,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      withCredentials: true
+    };
+
+    return this.http.get<Activity[]>(this.activityUrl, httpOptions);
   }
 
   getActivityTypes(): Observable<ActivityType[]> {
-    return this.http.get<ActivityType[]>(this.activityTypeUrl);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      withCredentials: true
+    };
+
+    return this.http.get<ActivityType[]>(this.activityTypeUrl, httpOptions);
   }
-  
 
   addActivity(activity: Activity): Observable<Activity> {
-    return this.http.post<Activity>(`${this.activityUrl}/`, activity);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      withCredentials: true
+    };
+
+    return this.http.post<Activity>(this.activityUrl, activity, httpOptions);
   }
 
   updateActivity(id: number, activity: Activity): Observable<Activity> {
-    return this.http.put<Activity>(`${this.activityUrl}/${id}`, activity);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      withCredentials: true
+    };
+
+    return this.http.put<Activity>(`${this.activityUrl}/${id}`, activity, httpOptions);
   }
 
   getActivityById(id: number): Observable<Activity> {
-    return this.http.get<Activity>(`${this.activityUrl}/${id}`);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      withCredentials: true
+    };
+
+    return this.http.get<Activity>(`${this.activityUrl}/${id}`, httpOptions);
   }
 
   deleteActivity(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.activityUrl}/${id}`);
-  }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      withCredentials: true
+    };
 
+    return this.http.delete<void>(`${this.activityUrl}/${id}`, httpOptions);
+  }
+  
 }

@@ -68,7 +68,7 @@ export class ActivityTablePageComponent implements OnInit {
       this.activityService.deleteActivity(id).subscribe(
         () => {
           alert('Activity deleted successfully');
-          this.loadActivities(); // Refresh the list of activities
+          this.loadActivities();
         },
         error => {
           console.error('Failed to delete activity', error);

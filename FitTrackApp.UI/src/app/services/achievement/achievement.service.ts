@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Achievement } from '../../models/achievement';
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +12,24 @@ export class AchievementService {
   constructor(private http: HttpClient) {}
 
   getAchievements(): Observable<Achievement[]> {
-    return this.http.get<Achievement[]>(this.achievementUrl);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      withCredentials: true
+    };
+
+    return this.http.get<Achievement[]>(this.achievementUrl, httpOptions);
   }
 
   addAchievement(achievement: Achievement): Observable<Achievement> {
-    return this.http.post<Achievement>(`${this.achievementUrl}/`, achievement);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      withCredentials: true
+    };
+
+    return this.http.post<Achievement>(`${this.achievementUrl}/`, achievement, httpOptions);
   }
 }

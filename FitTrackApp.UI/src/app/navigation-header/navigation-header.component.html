@@ -1,23 +1,27 @@
 <header>
     <div class="container">
-        <div class="main-menu">
-            <a href="#" routerLink="/" class="logo">FitTrack</a>
-        </div>
-        <nav>
-            <ul>
-                <span class="left-align">
-                    <li><a href="#" routerLink="/" class="menu-item">Home</a></li>
-                    <ng-container *ngIf="authService.isLoggedIn()">
-                        <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
-                    </ng-container>
-                    <ng-container *ngIf="!authService.isLoggedIn()">
-                        <li><a href="#" routerLink="/about" class="menu-item">About</a></li>
-                        <li><a routerLink="/activities" routerLinkActive="active">Activities</a></li>
-                        <li><a routerLink="/goals" routerLinkActive="active">Goals</a></li>
-                        <li><a (click)="logout()" class="menu-item">Logout</a></li>
-                    </ng-container>
-                </span>
-            </ul>
-        </nav>
+      <div class="main-menu">
+        <a routerLink="/" class="logo">FitTrack</a>
+      </div>
+      <nav>
+        <ul>
+          <ng-container *ngIf="!isLoggedIn; else loggedIn">
+            <span class="left-align">
+              <li><a routerLink="/" class="menu-item">Home</a></li>
+              <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+            </span>
+          </ng-container>
+          <ng-template #loggedIn>
+            <span class="left-align">
+              <li><a routerLink="/" class="menu-item">Home</a></li>
+              <li><a routerLink="/about" class="menu-item">About</a></li>
+              <li><a routerLink="/activities" routerLinkActive="active">Activities</a></li>
+              <li><a routerLink="/goals" routerLinkActive="active">Goals</a></li>
+              <li><a (click)="logout()" class="menu-item">Logout</a></li>
+            </span>
+          </ng-template>
+        </ul>
+      </nav>
     </div>
-</header>
+  </header>
+  

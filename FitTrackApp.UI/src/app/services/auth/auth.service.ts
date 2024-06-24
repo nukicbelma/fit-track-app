@@ -1,74 +1,83 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
-import { Token } from '@angular/compiler';
-
-interface UserLoginDTO {
-  username: string;
-  password: string;
-}
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private loginUrl = 'https://localhost:5001/api/Auth/Login';
-  private logoutUrl = 'https://localhost:5001/api/Auth/Logout';
+  private baseApiUrl = 'https://localhost:5001/Auth';
+  private currentUserSubject: BehaviorSubject<any>;
+  public currentUser: Observable<any>;
+  public isLoggedIn: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+    this.currentUserSubject = new BehaviorSubject<any>(null);
+    this.currentUser = this.currentUserSubject.asObservable();
+    this.getCurrentUser().subscribe();
+  }
 
-  login(credentials: UserLoginDTO): Observable<any> {
-    return this.http.post<any>(this.loginUrl, credentials).pipe(
-      tap(response => {
-        if (response.token) {
-          this.setToken(response.token);
-          console.log('token',response.token)
-          this.router.navigate(['/home']);
-        }
-        console.log(response)
+  login(credentials: { username: string, password: string }): Observable<any> {
+    const loginUrl = `${this.baseApiUrl}/Login`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<any>(loginUrl, credentials, { headers, withCredentials: true }).pipe(
+      tap(user => {
+        console.log('Login successful', user);
+        this.isLoggedIn = true;
       }),
-      catchError(error => {
-        console.error('Error logging in', error);
-        throw error; // Re-throw the error to be handled by the caller
-      })
+      catchError(this.handleError('Login', null))
     );
   }
 
   logout(): Observable<any> {
-    return this.http.post<any>(this.logoutUrl, {}).pipe(
-      tap(() => {
-        this.removeToken();
-        this.router.navigate(['/login']);
-      }),
-      catchError(error => {
-        console.error('Error logging out', error);
-        throw error; // Re-throw the error to be handled by the caller
-      })
+    const logoutUrl = `${this.baseApiUrl}/Logout`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<any>(logoutUrl, {}, { headers, withCredentials: true }).pipe(
+      tap(
+        () => {
+          console.log('Logout successful');
+          this.isLoggedIn = false;
+          this.currentUserSubject.next(null); 
+          this.router.navigate(['/home']);
+        },
+        error => {
+          console.error('Logout failed', error);
+          this.isLoggedIn = false; 
+          this.currentUserSubject.next(null);
+          this.router.navigate(['/home']);
+        }
+      ),
+      catchError(this.handleError('Logout', null))
     );
   }
 
-  isLoggedIn(): boolean {
-    return !!this.getToken();
+  getCurrentUser(): Observable<any> {
+    const currentUserUrl = `${this.baseApiUrl}/Current-User`;
+
+    return this.http.get<any>(currentUserUrl, { withCredentials: true }).pipe(
+      tap(user => {
+        console.log('Current user fetched');
+        this.currentUserSubject.next(user);
+        this.isLoggedIn = !!user;
+      }),
+      catchError(this.handleError('GetCurrentUser', null))
+    );
   }
 
-  private setToken(token: string): void {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('token', token);
-    }
-  }
+  private handleError(operation = 'operation', result?: any) {
+    return (error: any): Observable<any> => {
+      console.error(`${operation} failed:`, error);
 
-  private getToken(): string | null {
-    if (typeof localStorage !== 'undefined') {
-      return localStorage.getItem('token');
-    }
-    return null;
-  }
+      if (error instanceof HttpErrorResponse && error.status === 401) {
+        this.isLoggedIn = false;
+        this.router.navigate(['/login']);
+      }
 
-  private removeToken(): void {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.removeItem('token');
-    }
+      return of(result);
+    };
   }
 }
