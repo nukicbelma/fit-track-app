@@ -47,5 +47,12 @@ namespace FitTrackApp.WebAPI.Controllers
             }
             return Ok(user);
         }
+
+        [HttpGet("IsLoggedIn")]
+        public async Task<IActionResult> IsLoggedIn()
+        {
+            var isLoggedIn = await _authService.IsLoggedIn();
+            return Ok(new { IsLoggedIn = isLoggedIn });
+        }
     }
 }

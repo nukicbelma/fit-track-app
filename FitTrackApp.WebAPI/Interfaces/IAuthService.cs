@@ -9,7 +9,7 @@ namespace FitTrackApp.WebAPI.Interfaces
         Task<bool> Login(UserLoginDTO model);
         Task Logout();
         User GetCurrentUser();
-        bool IsLoggedIn();
+        Task<bool> IsLoggedIn();
         Task<User> GetUserByUsername(string username);
     }
 }

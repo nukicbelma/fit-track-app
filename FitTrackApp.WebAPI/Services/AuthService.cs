@@ -87,9 +87,10 @@ namespace FitTrackApp.WebAPI.Services
             return _mapper.Map<Models.User>(user);
         }
 
-        public bool IsLoggedIn()
+        public async Task<bool> IsLoggedIn()
         {
-            return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+            var result = await _httpContextAccessor.HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return result.Succeeded;
         }
 
         public async Task<Models.User> GetUserByUsername(string username)
