@@ -60,16 +60,17 @@ export class AchievementAddPageComponent implements OnInit {
       this.achievement.achievedTime = undefined;
     }
     this.achievementService.addAchievement(this.achievement).subscribe(
-      response => {
+      () => {
        this.successMessage = 'Achievement added successfully!';
        this.errorMessage = '';
        setTimeout(() => {
          this.router.navigate(['/achievements']);
        }, 2000);
      },
-     error => {
-       this.errorMessage = 'Fill required fields and try again.';
-       this.successMessage = ''; 
+     (error:any) => {
+      this.errorMessage = 'Failed to add achievement. Try again..';
+      this.successMessage = ''; 
+      console.error('Error adding achievement:', error);
      }
    );
   }

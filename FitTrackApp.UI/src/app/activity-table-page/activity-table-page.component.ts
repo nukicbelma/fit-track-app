@@ -67,7 +67,7 @@ export class ActivityTablePageComponent implements OnInit {
     if (confirm('Are you sure you want to delete this activity?')) {
       this.activityService.deleteActivity(id).subscribe(
         () => {
-          alert('Activity deleted successfully');
+          alert('Activity deleted successfully!');
           this.loadActivities();
         },
         error => {

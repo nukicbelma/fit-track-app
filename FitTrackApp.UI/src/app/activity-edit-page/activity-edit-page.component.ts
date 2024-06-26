@@ -13,6 +13,8 @@ export class ActivityEditPageComponent {
   activityId: number | undefined;
   activity: any = {};
   activityTypes: ActivityType[] = [];
+  successMessage: string = '';
+  errorMessage: string = ''; 
 
   constructor(
     private route: ActivatedRoute,
@@ -43,13 +45,28 @@ export class ActivityEditPageComponent {
   } 
 
   updateActivity(form: NgForm): void {
-    if (form.valid && this.activityId!=null) {
-      this.activityService.updateActivity(this.activityId, this.activity).subscribe(() => {
-        this.router.navigate(['/activities']); 
-      });
+    if (form.valid && this.activityId != null) {
+      this.activityService.updateActivity(this.activityId, this.activity).subscribe(
+        () => {
+          this.successMessage = 'Activity updated successfully!';
+          this.errorMessage = '';
+          setTimeout(() => {
+            this.router.navigate(['/activities']);
+          }, 1000);
+        },
+        (error: any) => {
+          this.errorMessage = 'Failed to update activity. Try again.';
+          this.successMessage = '';
+          console.error('Error updating activity:', error);
+        }
+      );
+    }
+    else {
+      this.errorMessage = 'Failed to update activity. Try again.';
+      this.successMessage = '';
     }
   }
-
+  
   
   cancel(): void {
     this.router.navigate(['/activities']);

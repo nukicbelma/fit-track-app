@@ -50,19 +50,25 @@ export class GoalAddPageComponent {
       frequency: form.value.frequency
     };
 
-    
+    if(form.valid) {
     this.goalService.addGoal(newGoal).subscribe(
-      response => {
-        this.successMessage = 'Goal added successfully';
+      () => {
+        this.successMessage = 'Goal added successfully!';
         this.errorMessage = '';
         setTimeout(() => {
           this.router.navigate(['/goals']);
         }, 2000);
       },
-      error => {
-        this.errorMessage = 'Failed to add goal.';
-        this.successMessage = ''; 
+      (error: any) => {
+        this.errorMessage = 'Failed to add goal. Try again.';
+        this.successMessage = '';
+        console.error('Error adding goal:', error);
       }
     );
+  }
+  else {
+    this.errorMessage = 'Failed to add goal. Try again.';
+    this.successMessage = '';
+  }
   }
 }

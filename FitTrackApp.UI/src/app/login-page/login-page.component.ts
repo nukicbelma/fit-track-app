@@ -16,16 +16,17 @@ export class LoginPageComponent {
 
   login() {
     this.authService.login(this.credentials).subscribe(
-       response => {
-        this.successMessage = 'Logged in successfully';
-        this.errorMessage = '';
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 2000);
-      },
-      error => {
-        this.errorMessage = 'Login failed. Incorrect username or password.';
-        this.successMessage = ''; 
+      response => {
+        if (response) {
+          this.successMessage = 'Logged in successfully!';
+          this.errorMessage = '';
+          setTimeout(() => {
+            this.router.navigate(['/home']);
+          }, 2000);
+        } else {
+          this.errorMessage = 'Login failed. Incorrect username or password.';
+          this.successMessage = '';
+        }
       }
     );
   }

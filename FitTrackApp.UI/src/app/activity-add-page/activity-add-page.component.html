@@ -26,5 +26,8 @@
       <button type="submit">Add activity</button>
       <button class="btn btn-secondary btn-block" (click)="cancel()">Cancel</button>
     </form>
+
+    <app-popup-message *ngIf="successMessage" [message]="successMessage" type="success"></app-popup-message>
+    <app-popup-message *ngIf="errorMessage" [message]="errorMessage" type="error"></app-popup-message>  
 </div>
   

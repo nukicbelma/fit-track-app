@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 
 @Component({
@@ -9,15 +9,16 @@ import { AuthService } from '../services/auth/auth.service';
 export class NavigationHeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe(user => {
-      this.isLoggedIn = !!user;
-    });
+    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+      console.log('Header component - is user logged in:', this.isLoggedIn);
+      this.cd.detectChanges(); });
   }
-  
-  logout(): void {
+
+  logout() {
     this.authService.logout();
   }
 }

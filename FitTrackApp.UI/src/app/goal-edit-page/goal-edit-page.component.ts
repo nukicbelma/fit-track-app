@@ -53,18 +53,24 @@ export class GoalEditPageComponent {
   updateGoal(form: NgForm): void {
     if (form.valid && this.goalId!=null) {
      this.goalService.updateGoal(this.goalId, this.goal).subscribe(
-      response => {
-        this.successMessage = 'Goal updated successfully';
+      () => {
+        this.successMessage = 'Goal updated successfully!';
         this.errorMessage = '';
         setTimeout(() => {
           this.router.navigate(['/goals']);
         }, 1000);
       },
-      error => {
-        this.errorMessage = 'Failed to update goal.';
-        this.successMessage = ''; 
+      (error: any) => {
+        this.errorMessage = 'Failed to update goal. Try again.';
+        this.successMessage = '';
+        console.error('Error updating goal:', error);
+        
       }
     );
+    }
+    else {
+      this.errorMessage = 'Failed to update goal. Try again.';
+      this.successMessage = '';
     }
   }
 }

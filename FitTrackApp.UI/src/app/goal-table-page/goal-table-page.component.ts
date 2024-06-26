@@ -55,7 +55,7 @@ export class GoalTablePageComponent implements OnInit {
     if (confirm('Are you sure you want to delete this goal?')) {
       this.goalService.deleteGoal(id).subscribe(
         () => {
-          alert('Goal deleted successfully');
+          alert('Goal deleted successfully!');
           this.loadGoals();
         },
         error => {

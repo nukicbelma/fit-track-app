@@ -21,6 +21,8 @@ export class ActivityAddPageComponent {
   };
 
   activityTypes: ActivityType[] = [];
+  successMessage: string = '';
+  errorMessage: string = ''; 
 
   constructor(private activityService: ActivityService, private router: Router) { }
 
@@ -46,12 +48,17 @@ export class ActivityAddPageComponent {
     };
 
     this.activityService.addActivity(newActivity).subscribe(
-      response => {
-        console.log('Activity added successfully', response);
-        this.router.navigate(['/activities']);
+      () => {
+        this.successMessage = 'Activity added successfully!';
+        this.errorMessage = '';
+        setTimeout(() => {
+          this.router.navigate(['/activities']);
+        }, 2000);
       },
-      error => {
-        console.error('Error adding activity', error);
+      (error: any) => {
+        this.errorMessage = 'Error adding activity. Please try again.';
+        this.successMessage = '';
+        console.error('Error adding activity:', error);
       }
     );
   }

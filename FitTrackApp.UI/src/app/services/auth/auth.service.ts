@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -9,14 +9,23 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class AuthService {
   private baseApiUrl = 'https://localhost:5001/Auth';
-  private currentUserSubject: BehaviorSubject<any>;
-  public currentUser: Observable<any>;
-  public isLoggedIn: boolean = false;
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  public isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
-    this.currentUserSubject = new BehaviorSubject<any>(null);
-    this.currentUser = this.currentUserSubject.asObservable();
-    this.getCurrentUser().subscribe();
+    this.checkLoginStatus();
+  }
+
+  private checkLoginStatus() {
+    this.isLoggedIn().subscribe(
+      (isLoggedIn) => {
+        this.isLoggedInSubject.next(isLoggedIn);
+      },
+      (error) => {
+        console.error('Error checking login status', error);
+        this.isLoggedInSubject.next(false);
+      }
+    );
   }
 
   login(credentials: { username: string, password: string }): Observable<any> {
@@ -26,46 +35,27 @@ export class AuthService {
     return this.http.post<any>(loginUrl, credentials, { headers, withCredentials: true }).pipe(
       tap(user => {
         console.log('Login successful', user);
-        this.isLoggedIn = true;
+        this.isLoggedInSubject.next(true);
       }),
       catchError(this.handleError('Login', null))
     );
   }
 
-  logout(): Observable<any> {
-    const logoutUrl = `${this.baseApiUrl}/Logout`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    return this.http.post<any>(logoutUrl, {}, { headers, withCredentials: true }).pipe(
-      tap(
-        () => {
-          console.log('Logout successful');
-          this.isLoggedIn = false;
-          this.currentUserSubject.next(null); 
-          this.router.navigate(['/home']);
-        },
-        error => {
-          console.error('Logout failed', error);
-          this.isLoggedIn = false; 
-          this.currentUserSubject.next(null);
-          this.router.navigate(['/home']);
-        }
-      ),
-      catchError(this.handleError('Logout', null))
+  logout() {
+    this.http.post(`${this.baseApiUrl}/Logout`, {}, { withCredentials: true }).subscribe(
+      () => {
+        this.isLoggedInSubject.next(false);
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Logout failed', error);
+      }
     );
   }
 
-  getCurrentUser(): Observable<any> {
-    const currentUserUrl = `${this.baseApiUrl}/Current-User`;
-
-    return this.http.get<any>(currentUserUrl, { withCredentials: true }).pipe(
-      tap(user => {
-        console.log('Current user fetched');
-        this.currentUserSubject.next(user);
-        this.isLoggedIn = !!user;
-      }),
-      catchError(this.handleError('GetCurrentUser', null))
-    );
+  isLoggedIn(): Observable<boolean> {
+    const isLoggedInUrl = `${this.baseApiUrl}/IsLoggedIn`;
+    return this.http.get<boolean>(isLoggedInUrl, { withCredentials: true });
   }
 
   private handleError(operation = 'operation', result?: any) {
@@ -73,7 +63,6 @@ export class AuthService {
       console.error(`${operation} failed:`, error);
 
       if (error instanceof HttpErrorResponse && error.status === 401) {
-        this.isLoggedIn = false;
         this.router.navigate(['/login']);
       }
 
